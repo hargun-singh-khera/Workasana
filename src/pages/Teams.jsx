@@ -1,8 +1,13 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar'
 import AddTeam from '../components/Modal/AddTeam'
+import useFetch from '../useFetch'
 
 const Teams = () => {
+    
+    const { data: teamsData } = useFetch("http://localhost:3000/teams")
+    const teams = teamsData?.teams
+
     return (
         <div className='container-fluid'>
             <div className="row">
@@ -16,27 +21,15 @@ const Teams = () => {
                         <AddTeam />
                     </div>
                     <div className="row">
-                        <div className="col-md-4">
-                            <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
-                                <div className="card-body">
-                                    <h5 className="card-title">Design Team</h5>
+                        {teams?.map((team) => (
+                            <div className="col-md-4">
+                                <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
+                                    <div className="card-body">
+                                        <h5 className="card-title">{team?.name}</h5>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-md-4">
-                            <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
-                                <div className="card-body">
-                                    <h5 className="card-title">Development Team</h5>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md-4">
-                            <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
-                                <div className="card-body">
-                                    <h5 className="card-title">Marketing Team</h5>
-                                </div>
-                            </div>
-                        </div>
+                        ))}
                     </div>
                 </div>
             </div>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import toast, { Toaster } from 'react-hot-toast';
-import { Modal } from 'bootstrap';
+import toast from 'react-hot-toast';
 
 const AddProject = () => {
 
@@ -40,12 +39,7 @@ const AddProject = () => {
             const data = await response.json()
             console.log("data", data)
             toast.success("Project created successfully")
-            setFormData({ name: "", description: "" })
-
-            const modalEl = document.getElementById("projectModal");
-            const modal = Modal.getInstance(modalEl) || new Modal(modalEl);
-            modal.hide();
-
+            setFormData({ name: "", description: "" });
         } catch (error) {
             toast.error(error?.message)
             console.error("Error while adding project")
@@ -81,7 +75,6 @@ const AddProject = () => {
                     </div>
                 </form>
             </div>
-            <Toaster />
         </div>
     )
 }
