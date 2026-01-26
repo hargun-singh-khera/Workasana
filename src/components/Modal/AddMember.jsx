@@ -1,17 +1,43 @@
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 
-const AddMember = () => {
-
+const AddMember = ({ teamId }) => {
+    console.log("teamId", teamId)
     const [name, setName] = useState("")
     const [loading, setLoading] = useState(false)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        // try {
-        //     const response = await fetch()
-        // } catch (error) {
-            
-        // }
+        if(!name) {
+            toast.error("Member name is required")
+            return
+        }
+        try {
+            setLoading(true)
+            const result = JSON.stringify({name})
+            console.log("result", result)
+            console.log("token", localStorage.getItem("token"))
+            const response = await fetch(`http://localhost:3000/teams/${teamId}/member`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": localStorage.getItem("token")
+                },
+                body: JSON.stringify({name})
+            })
+            console.log("res", response)
+            if(!response.ok) {
+                throw new Error("Failed to add member")
+            }
+            const data = await response.json()
+            console.log("data", data)
+            toast.success("Member added successfully")
+            setName("")
+        } catch (error) {
+            console.error("Error while adding member to the team", error?.message)
+        } finally {
+            setLoading(false)
+        }
     } 
 
     return (
@@ -30,7 +56,10 @@ const AddMember = () => {
                     </div>
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="button" className="btn btn-primary">Add</button>
+                        <button className="btn btn-primary" disabled={loading}>
+                            {loading && <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>}
+                            {!loading ? "Add" : "Adding..."}
+                        </button>
                     </div>
                 </form>
             </div>

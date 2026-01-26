@@ -5,8 +5,10 @@ import AddTask from '../components/Modal/AddTask'
 import { Toaster } from 'react-hot-toast'
 import useFetch from '../useFetch'
 import Badge from '../components/Badge'
+import { Link } from 'react-router-dom'
+import AvatarGroup from '../components/AvatarGroup'
 
-const getFormattedDate = (dateString) => {
+export const getFormattedDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" });
 }
 
@@ -19,14 +21,15 @@ const Dashboard = () => {
     
     // console.log("projects", projects)
     // console.log("teams", teams)
-
-    let filteredProjects = projects ? [...projects] : []
     
     const statuses = ["To Do", "In Progress", "Completed", "Blocked"]
+    const projectStatuses = ["In Progress", "Completed"]
     
     const [status, setStatus] = useState("")
-    let filteredTasks = status === "" ? tasks : tasks.filter(task => task.status === status)
+    const [projectStatus, setProjectStatus] = useState("")
+    const filteredTasks = status === "" ? tasks : tasks.filter(task => task.status === status)
     console.log("status", status)
+    const filteredProjects = projectStatus === "" ? projects: projects.filter(project => project.status === projectStatus)
     // console.log("filteredTasks", filteredTasks)
 
     return (
@@ -47,10 +50,8 @@ const Dashboard = () => {
                             <div className="d-flex align-items-center gap-4">
                                 <h3>Projects</h3>
                                 <select className="form-select w-auto" aria-label="Default select example">
-                                    <option selected>Filter</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option selected value="">Filter</option>
+                                    {projectStatuses?.map(status => <option key={status} value={(e) => setProjectStatus(e.target.value)}>{status}</option>)}
                                 </select>
                             </div>
                             <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#projectModal">+ New Project</button>
@@ -58,25 +59,16 @@ const Dashboard = () => {
                         </div>
                         <div className="row">
                             {filteredProjects?.map((project) => (
-                                <div key={project._id} className="col-md-4">
+                                <Link to={`/project/${project?._id}`} key={project._id} className="col-md-4 text-decoration-none">
                                     <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
                                         <div className="card-body">
-                                            {/* <span className="badge mb-3" style={{ backgroundColor: "#FEF3C7", color: "#bd9072" }}>In Progress</span> */}
+                                            <Badge status={project?.status || "In Progress"} />
                                             <h5 className="card-title">{project?.name}</h5>
-                                            <p className="card-text">{project?.description?.slice(0, 500)}</p>
+                                            <p className="card-text">{project?.description?.length > 400 ? project?.description?.slice(0, 400) + "..." : project?.description}</p>
                                         </div>
                                     </div>
-                                </div>
+                                </Link>
                             ))}
-                            {/* <div className="col-md-4">
-                                <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
-                                    <div className="card-body">
-                                        <span className="badge mb-3" style={{ backgroundColor: "#DCFCE7", color: "#538f6a" }}>Completed</span>
-                                        <h5 className="card-title">Create Moodboard</h5>
-                                        <p className="card-text fs-6">This project centers around compiling a digit moodboard to set the visual direction and tone for for a new brand identity. The moodboard will showcase a curated selection of images, color...</p>
-                                    </div>
-                                </div>
-                            </div> */}
                         </div>
                     </section>
                     <section className="mb-3">
@@ -99,6 +91,7 @@ const Dashboard = () => {
                                             <Badge status={task?.status} />
                                             <h5 className="card-title">{task?.name}</h5>
                                             <p className="card-text text-body-tertiary">Due on: {getFormattedDate(task?.dueDate)}</p>
+                                            {/* <AvatarGroup /> */}
                                         </div>
                                     </div>
                                 </div>

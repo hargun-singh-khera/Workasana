@@ -47,7 +47,7 @@ const Sidebar = () => {
                     </Link>
                 </li>
                 <li className="nav-item mb-4 ms-3 w-100">
-                    <button onClick={handleLogout} className="btn border-none text-decoration-none text-secondary">
+                    <button onClick={handleLogout} className="btn border-none text-decoration-none text-danger">
                         <i class="bi bi-box-arrow-right me-2"></i>
                         Logout
                     </button>

@@ -155,7 +155,7 @@ const AddTask = () => {
                             </div>
                             <div className="col">
                                 <label for="estTime" className="form-label">Estimated Time</label>
-                                <input type="number" className="form-control" id="estTime" name="estTime" value={formData.estTime} onChange={handleChange} placeholder="Enter Time in Days" />
+                                <input type="number" className="form-control" id="estTime" name="estTime" min={1} value={formData.estTime} onChange={handleChange} placeholder="Enter Time in Days" />
                             </div>
                         </div>
                     </div>

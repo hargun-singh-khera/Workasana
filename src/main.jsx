@@ -33,11 +33,15 @@ const router = createBrowserRouter([
     element: <Project />
   },
   {
+    path: "/project/:projectId",
+    element: <Project />
+  },
+  {
     path: "/teams",
     element: <Teams />
   },
   {
-    path: "/teams/detail",
+    path: "/teams/:teamId",
     element: <TeamDetails />
   },
   {

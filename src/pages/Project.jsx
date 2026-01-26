@@ -1,16 +1,32 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar'
 import AddTask from '../components/Modal/AddTask'
+import { useParams } from 'react-router-dom'
+import useFetch from '../useFetch'
+import { getFormattedDate } from './Dashboard'
+
+const Badge = ({ priority }) => {
+    return (<span className="px-2 rounded-pill" style={{ backgroundColor: `${priority === "High" ? "#FDE2E1" : priority === "Low" ? "#F1F3F5" : "#E8E1FF"}`, color: `${priority === "High" ? "#C0392B" : priority === "Low" ? "#6C757D" : "#6F42C1"}` }}>
+        <i className="bi bi-flag"></i> {priority}
+    </span>)
+}
 
 const Project = () => {
+    const { projectId } = useParams()
+    console.log("projectId", projectId)
+    const { data: projectData, loading: projectLoading, error: projectError } = useFetch(`http://localhost:3000/project/${projectId}`)
+
+    const { data, loading, error } = useFetch(`http://localhost:3000/tasks/project/${projectId}`)
+    console.log("data", data)
+    const tasks = data?.tasks
     return (
         <div className='container-fluid'>
             <div className="row">
                 <Sidebar />
                 <div className="col-md-10 px-5 my-5">
                     <div>
-                        <h3>Create Moodboard</h3>
-                        <p>This project centers around compiling a digital moodboard to set the visual direction and tone for a new brand identity. The moodboard will showcase a curated selection of images, color palettes, typography samples, textures, and layout inspirations that collectively evoke the brand's intended mood and style.</p>
+                        <h3>{projectData?.project?.name}</h3>
+                        <p>{projectData?.project?.description}</p>
                     </div>
                     <div className="d-flex justify-content-between align-items-center mt-5 mb-4">
                         <div className="d-flex gap-2 align-items-center">
@@ -34,7 +50,8 @@ const Project = () => {
                         </div>
                     </div>
                     <div className="table-responsive">
-                        <table className="table table-bordered rounded-3">
+                        {tasks?.length === 0 && <p>No tasks found</p>}
+                        {tasks?.length > 0 && <table className="table table-bordered rounded-3">
                             <thead className="table-light">
                                 <tr>
                                     <th scope="col">TASKS</th>
@@ -45,32 +62,20 @@ const Project = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Create Filter feature</td>
-                                    <td>Otto</td>
-                                    <td>High</td>
-                                    <td>20 Dec, 2024</td>
-                                    <td>Completed</td>
-                                    <td className="text-center"><i className="bi bi-arrow-right-short"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>Create Filter feature</td>
-                                    <td>Otto</td>
-                                    <td>Low</td>
-                                    <td>20 Dec, 2024</td>
-                                    <td>Completed</td>
-                                    <td className="text-center"><i className="bi bi-arrow-right-short"></i></td>
-                                </tr>
-                                <tr>
-                                    <td>Create Filter feature</td>
-                                    <td>Otto</td>
-                                    <td>Medium</td>
-                                    <td>20 Dec, 2024</td>
-                                    <td>Completed</td>
-                                    <td className="text-center"><i className="bi bi-arrow-right-short"></i></td>
-                                </tr>
+                                {tasks?.map(task => (
+                                    <tr>
+                                        <td>{task?.name}</td>
+                                        <td>{task?.owners?.map(owner => owner.name)}</td>
+                                        <td>
+                                            <Badge priority={task?.priority} />
+                                        </td>
+                                        <td className="fw-bold">{getFormattedDate(task?.dueDate)}</td>
+                                        <td>{task?.status}</td>
+                                        <td className="text-center"><i className="bi bi-arrow-right-short"></i></td>
+                                    </tr>
+                                ))}
                             </tbody>
-                        </table>
+                        </table>}
                     </div>
                 </div>
             </div>
