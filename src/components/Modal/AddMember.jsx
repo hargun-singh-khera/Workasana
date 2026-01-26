@@ -17,7 +17,7 @@ const AddMember = ({ teamId }) => {
             const result = JSON.stringify({name})
             console.log("result", result)
             console.log("token", localStorage.getItem("token"))
-            const response = await fetch(`http://localhost:3000/teams/${teamId}/member`, {
+            const response = await fetch(`https://workasana-backend-blush.vercel.app/teams/${teamId}/member`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -32,10 +32,10 @@ const AddTask = () => {
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
-    const { data: projectsData } = useFetch("http://localhost:3000/projects")
-    const { data: teamsData } = useFetch("http://localhost:3000/teams")
-    const { data: tagsData } = useFetch("http://localhost:3000/tags")
-    const { data: ownersData } = useFetch("http://localhost:3000/users")
+    const { data: projectsData } = useFetch("https://workasana-backend-blush.vercel.app/projects")
+    const { data: teamsData } = useFetch("https://workasana-backend-blush.vercel.app/teams")
+    const { data: tagsData } = useFetch("https://workasana-backend-blush.vercel.app/tags")
+    const { data: ownersData } = useFetch("https://workasana-backend-blush.vercel.app/users")
 
     const projects = projectsData?.projects
     const teams = teamsData?.teams
@@ -64,7 +64,7 @@ const AddTask = () => {
                 timeToComplete,
             }
             console.log("payload", payload)
-            const response = await fetch("http://localhost:3000/tasks", {
+            const response = await fetch("https://workasana-backend-blush.vercel.app/tasks", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

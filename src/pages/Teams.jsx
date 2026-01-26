@@ -11,7 +11,7 @@ const IconItem = ({ index, countLabel }) => {
 
 const Teams = () => {
     
-    const { data: teamsData } = useFetch("http://localhost:3000/teams")
+    const { data: teamsData } = useFetch("https://workasana-backend-blush.vercel.app/teams")
     const teams = teamsData?.teams
 
     const navigate = useNavigate()

@@ -14,9 +14,9 @@ const Badge = ({ priority }) => {
 const Project = () => {
     const { projectId } = useParams()
     console.log("projectId", projectId)
-    const { data: projectData, loading: projectLoading, error: projectError } = useFetch(`http://localhost:3000/project/${projectId}`)
+    const { data: projectData, loading: projectLoading, error: projectError } = useFetch(`https://workasana-backend-blush.vercel.app/project/${projectId}`)
 
-    const { data, loading, error } = useFetch(`http://localhost:3000/tasks/project/${projectId}`)
+    const { data, loading, error } = useFetch(`https://workasana-backend-blush.vercel.app/tasks/project/${projectId}`)
     console.log("data", data)
     const tasks = data?.tasks
     return (

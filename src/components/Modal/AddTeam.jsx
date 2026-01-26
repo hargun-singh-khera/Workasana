@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import useFetch from '../../useFetch'
 
 const AddTeam = () => {
-    const { data: teamsData } = useFetch("http://localhost:3000/teams")
+    const { data: teamsData } = useFetch("https://workasana-backend-blush.vercel.app/teams")
     const teams = teamsData?.teams
 
     const [formData, setFormData] = useState({

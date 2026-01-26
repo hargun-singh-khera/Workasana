@@ -14,8 +14,8 @@ export const getFormattedDate = (dateString) => {
 
 const Dashboard = () => {
 
-    const { data: projectsData } = useFetch("http://localhost:3000/projects")
-    const { data: tasksData } = useFetch("http://localhost:3000/tasks")
+    const { data: projectsData } = useFetch("https://workasana-backend-blush.vercel.app/projects")
+    const { data: tasksData } = useFetch("https://workasana-backend-blush.vercel.app/tasks")
     const projects = projectsData?.projects
     const tasks = tasksData?.tasks
     
