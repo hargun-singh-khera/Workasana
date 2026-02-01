@@ -41,7 +41,7 @@ const Sidebar = () => {
                     </Link>
                 </li>
                 <li className="nav-item mb-3 ms-4 ">
-                    <Link className="text-decoration-none text-secondary">
+                    <Link to={"/settings"} className="text-decoration-none text-secondary">
                         <i className="bi bi-gear me-2"></i>
                         Settings
                     </Link>

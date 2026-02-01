@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import useFetch from '../../useFetch'
 
 const AddTeam = () => {
-    const { data: teamsData } = useFetch("https://workasana-backend-blush.vercel.app/teams")
+    const { data: teamsData } = useFetch("https://workasana-backend-wheat.vercel.app/teams")
     const teams = teamsData?.teams
 
     const [formData, setFormData] = useState({
@@ -27,10 +27,7 @@ const AddTeam = () => {
                     <div className="modal-body">
                         <div className="mb-3">
                             <label for="name" className="form-label">Team Name</label>
-                            <select id="team" className="form-select" name="team" value={formData.team} onChange={handleChange} aria-label="Default select example">
-                                <option selected value="">Select Team</option>
-                                {teams?.map(team => <option value={team?._id}>{team?.name}</option>)}
-                            </select>
+                            <input type="text" className="form-control mb-2" id="teamName" name="team" placeholder="Enter Team Name" />
                         </div>
                         <div className="mb-3">
                             <label for="description" className="form-label">Add Members</label>

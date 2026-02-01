@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 
-const AddProject = () => {
+const AddProject = ({ setProjects }) => {
 
     const [formData, setFormData] = useState({
         name: "",
@@ -24,7 +24,7 @@ const AddProject = () => {
         }
         try {
             setLoading(true)
-            const response = await fetch("https://workasana-backend-blush.vercel.app/projects", {
+            const response = await fetch("https://workasana-backend-wheat.vercel.app/projects", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -39,6 +39,7 @@ const AddProject = () => {
             const data = await response.json()
             console.log("data", data)
             toast.success("Project created successfully")
+            setProjects((prev) => [...prev, data?.project])
             setFormData({ name: "", description: "" });
         } catch (error) {
             toast.error(error?.message)

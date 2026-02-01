@@ -4,7 +4,7 @@ import makeAnimated from 'react-select/animated';
 import useFetch from '../../useFetch'
 import toast from 'react-hot-toast';
 
-const AddTask = () => {
+const AddTask = ({ setTasks, isProject }) => {
     const animatedComponents = makeAnimated();
 
     const [formData, setFormData] = useState({
@@ -32,10 +32,10 @@ const AddTask = () => {
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
-    const { data: projectsData } = useFetch("https://workasana-backend-blush.vercel.app/projects")
-    const { data: teamsData } = useFetch("https://workasana-backend-blush.vercel.app/teams")
-    const { data: tagsData } = useFetch("https://workasana-backend-blush.vercel.app/tags")
-    const { data: ownersData } = useFetch("https://workasana-backend-blush.vercel.app/users")
+    const { data: projectsData } = useFetch("https://workasana-backend-wheat.vercel.app/projects")
+    const { data: teamsData } = useFetch("https://workasana-backend-wheat.vercel.app/teams")
+    const { data: tagsData } = useFetch("https://workasana-backend-wheat.vercel.app/tags")
+    const { data: ownersData } = useFetch("https://workasana-backend-wheat.vercel.app/users")
 
     const projects = projectsData?.projects
     const teams = teamsData?.teams
@@ -64,7 +64,7 @@ const AddTask = () => {
                 timeToComplete,
             }
             console.log("payload", payload)
-            const response = await fetch("https://workasana-backend-blush.vercel.app/tasks", {
+            const response = await fetch("https://workasana-backend-wheat.vercel.app/tasks", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -79,6 +79,7 @@ const AddTask = () => {
             const data = await response.json()
             console.log("data", data)
             toast.success("Task created successfully")
+            setTasks((prev) => [...prev, data.task])
             setFormData({
                 name: "",
                 project: "",

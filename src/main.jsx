@@ -14,6 +14,7 @@ import Teams from './pages/Teams.jsx'
 import TeamDetails from './pages/TeamDetails.jsx'
 import Project from './pages/Project.jsx'
 import Reports from './pages/Reports.jsx'
+import Settings from './pages/Settings.jsx'
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
   {
     path: "/reports",
     element: <Reports />
+  },
+  {
+    path: "/settings",
+    element: <Settings />
   },
 ])
 

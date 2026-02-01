@@ -25,7 +25,7 @@ const Login = () => {
         else {
             try {
                 setLoading(true)
-                const response = await fetch("https://workasana-backend-blush.vercel.app/auth/login", {
+                const response = await fetch("https://workasana-backend-wheat.vercel.app/auth/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -44,8 +44,8 @@ const Login = () => {
                 setPassword("")
                 navigate("/dashboard")
             } catch (error) {
-                toast.error(error?.message)
-                console.error("Error while logging in user")
+                toast.error("Failed to login")
+                console.error("Error while logging in user", error?.message)
             } finally {
                 setLoading(false)
             }

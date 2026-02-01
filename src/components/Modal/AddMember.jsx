@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
-const AddMember = ({ teamId }) => {
+const AddMember = ({ members, setMembers, teamId }) => {
     console.log("teamId", teamId)
     const [name, setName] = useState("")
     const [loading, setLoading] = useState(false)
@@ -17,7 +17,7 @@ const AddMember = ({ teamId }) => {
             const result = JSON.stringify({name})
             console.log("result", result)
             console.log("token", localStorage.getItem("token"))
-            const response = await fetch(`https://workasana-backend-blush.vercel.app/teams/${teamId}/member`, {
+            const response = await fetch(`https://workasana-backend-wheat.vercel.app/teams/${teamId}/member`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -33,6 +33,7 @@ const AddMember = ({ teamId }) => {
             console.log("data", data)
             toast.success("Member added successfully")
             setName("")
+            setMembers((prev) => [...prev, {name}])
         } catch (error) {
             console.error("Error while adding member to the team", error?.message)
         } finally {

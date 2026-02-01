@@ -3,15 +3,13 @@ import Sidebar from '../components/Sidebar'
 import AddTeam from '../components/Modal/AddTeam'
 import useFetch from '../useFetch'
 import { Link, useNavigate } from 'react-router-dom'
+import AvatarGroup from '../components/AvatarGroup'
 
-const IconItem = ({ index, countLabel }) => {
-    console.log("index", index, "countLabel", countLabel)
-    return (index < 3 || index === 3 && countLabel > 0) && <span className="rounded-circle text-white d-flex justify-content-center align-items-center" style={{ width: "32px", height: "32px", backgroundColor: index === 0 ? "#F59E0B" : index === 1 ? "#10B981" : index === 2 ? "#3B82F6" : "#8B5CF6", marginLeft: index > 0 && "-7px"}}>{index < 3 ? <i class="bi bi-person"></i> : "+" + countLabel > 0 && `+${countLabel}`}</span>
-}
 
 const Teams = () => {
-    
-    const { data: teamsData } = useFetch("https://workasana-backend-blush.vercel.app/teams")
+
+    const { data: teamsData, loading: teamsLoading } = useFetch("https://workasana-backend-wheat.vercel.app/teams")
+
     const teams = teamsData?.teams
 
     const navigate = useNavigate()
@@ -30,19 +28,23 @@ const Teams = () => {
                         <AddTeam />
                     </div>
                     <div className="row">
-                        {teams?.map((team) => (
-                            <button onClick={() => navigate(`/teams/${team?._id}`, { state: {team: teams?.find(t => t._id === team._id )}})} className="btn border-0 col-md-4 text-decoration-none">
+                        {teamsLoading && (
+                            <div className="d-flex justify-content-center align-items-center">
+                                <div class="spinner-border text-secondary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+                        )}
+                        {teams?.length === 0 && <p>No teams found.</p>}
+                        {teams?.length > 0 && teams?.map((team) => (
+                            <button key={team?._id} onClick={() => navigate(`/teams/${team?._id}`, { state: { team: teams?.find(t => t._id === team._id) } })} className="btn border-0 col-md-4 text-decoration-none">
                                 <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
                                     <div className="card-body">
                                         <h5 className="card-title mb-3 d-flex justify-content-start">{team?.name}</h5>
                                         <div className="d-flex">
                                             {team?.members?.slice(0, 4)?.map((member, index) => (
-                                                <IconItem key={index} index={index} countLabel={team?.members?.length > 4 ? team?.members.length - 4 : 0} />
+                                                <AvatarGroup key={index} index={index} total={team?.members?.length} member={member?.name} countLabel={team?.members?.length > 3 ? team?.members.length - 3 : 0} />
                                             ))}
-                                            {/* <span className="rounded-circle text-white d-flex justify-content-center align-items-center" style={{ width: "32px", height: "32px", backgroundColor: "#F59E0B"}}><i class="bi bi-person"></i></span>
-                                            <span className="rounded-circle text-white d-flex justify-content-center align-items-center" style={{ width: "32px", height: "32px", backgroundColor: "#10B981", marginLeft: "-7px"}}><i class="bi bi-person"></i></span>
-                                            <span className="rounded-circle text-white d-flex justify-content-center align-items-center" style={{ width: "32px", height: "32px", backgroundColor: "#3B82F6", marginLeft: "-7px"}}><i class="bi bi-person"></i></span>
-                                            <span className="rounded-circle text-white d-flex justify-content-center align-items-center" style={{ width: "32px", height: "32px", backgroundColor: "#8B5CF6", marginLeft: "-7px"}}>+2</span> */}
                                         </div>
                                     </div>
                                 </div>
