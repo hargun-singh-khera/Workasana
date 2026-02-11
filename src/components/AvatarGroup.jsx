@@ -3,6 +3,7 @@ import React from 'react'
 const AvatarGroup = ({ total, member, index, countLabel }) => {
   console.log("total", total, "member", member)
   console.log("index", index, "countLabel", countLabel)
+  if(!member) return;
   if (total === 1) {
     return (
       <div className="d-flex justify-content-center align-items-center gap-2">

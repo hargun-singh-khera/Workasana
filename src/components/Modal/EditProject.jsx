@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 
-const AddProject = ({ setProjects }) => {
+const EditProject = ({ setProjects }) => {
 
     const [formData, setFormData] = useState({
         name: "",
@@ -80,4 +80,4 @@ const AddProject = ({ setProjects }) => {
     )
 }
 
-export default AddProject
+export default EditProject

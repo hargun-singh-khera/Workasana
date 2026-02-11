@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../components/Sidebar'
 import AddTeam from '../components/Modal/AddTeam'
 import useFetch from '../useFetch'
@@ -8,13 +8,18 @@ import AvatarGroup from '../components/AvatarGroup'
 
 const Teams = () => {
 
-    const { data: teamsData, loading: teamsLoading } = useFetch("https://workasana-backend-wheat.vercel.app/teams")
-
-    const teams = teamsData?.teams
-
     const navigate = useNavigate()
+    const { data: teamsData, loading, error } = useFetch("https://workasana-backend-wheat.vercel.app/teams")
 
-
+    // const teams = teamsData?.teams
+    const [teams, setTeams] = useState([])
+    
+    useEffect(() => {
+        if (teamsData) setTeams(teamsData?.teams)
+    }, [teamsData])
+    
+    console.log("teams", teams)
+    
     return (
         <div className='container-fluid'>
             <div className="row">
@@ -25,18 +30,19 @@ const Teams = () => {
                             <h2>Teams</h2>
                         </div>
                         <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamModal">+ New Team</button>
-                        <AddTeam />
+                        <AddTeam setTeams={setTeams} />
                     </div>
                     <div className="row">
-                        {teamsLoading && (
+                        {loading && (
                             <div className="d-flex justify-content-center align-items-center">
                                 <div class="spinner-border text-secondary" role="status">
                                     <span class="visually-hidden">Loading...</span>
                                 </div>
                             </div>
                         )}
-                        {teams?.length === 0 && <p>No teams found.</p>}
-                        {teams?.length > 0 && teams?.map((team) => (
+                        {!loading && teams?.length === 0 && <p>No teams found.</p>}
+                        {!loading && error && <p>Failed to fetch teams.</p>}
+                        {!loading && teams?.length > 0 && teams?.map((team) => (
                             <button key={team?._id} onClick={() => navigate(`/teams/${team?._id}`, { state: { team: teams?.find(t => t._id === team._id) } })} className="btn border-0 col-md-4 text-decoration-none">
                                 <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
                                     <div className="card-body">

@@ -4,14 +4,17 @@ import makeAnimated from 'react-select/animated';
 import useFetch from '../../useFetch'
 import toast from 'react-hot-toast';
 
-const AddTask = ({ setTasks, isProject }) => {
+const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) => {
     const animatedComponents = makeAnimated();
+
+    console.log("projectData", projectData)
 
     const [formData, setFormData] = useState({
         name: "",
         project: "",
         team: "",
         owners: [],
+        status: "To Do",
         tags: [],
         dueDate: "",
         estTime: "",
@@ -32,12 +35,12 @@ const AddTask = ({ setTasks, isProject }) => {
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
-    const { data: projectsData } = useFetch("https://workasana-backend-wheat.vercel.app/projects")
+    // const { data: projectsData } = useFetch("https://workasana-backend-wheat.vercel.app/projects")
     const { data: teamsData } = useFetch("https://workasana-backend-wheat.vercel.app/teams")
     const { data: tagsData } = useFetch("https://workasana-backend-wheat.vercel.app/tags")
     const { data: ownersData } = useFetch("https://workasana-backend-wheat.vercel.app/users")
 
-    const projects = projectsData?.projects
+    // const projects = projectsData?.projects
     const teams = teamsData?.teams
     const tags = tagsData?.tags
     const owners = ownersData?.users
@@ -47,17 +50,19 @@ const AddTask = ({ setTasks, isProject }) => {
     const ownersOptions = owners?.map((owner) => ({ value: owner?._id, label: owner?.name?.slice(0, 1).toUpperCase() + owner?.name?.slice(1) }))
     const tagsOptions = tags?.map((tag) => ({ value: tag?._id, label: tag?.name.slice(0, 1).toUpperCase() + tag?.name?.slice(1) }))
 
+    const statuses = ["To Do", "In Progress", "Completed", "Blocked"]
     console.log("formData", formData)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             setLoading(true)
-            const { name, project, team, owners, tags, dueDate, estTime: timeToComplete } = formData
+            const { name, project, team, owners, status, tags, dueDate, estTime: timeToComplete } = formData
             const payload = {
                 name,
                 project,
                 team,
+                status,
                 owners: owners.map(owner => owner.value),
                 tags: tags.map(tag => tag.value),
                 dueDate,
@@ -85,6 +90,7 @@ const AddTask = ({ setTasks, isProject }) => {
                 project: "",
                 team: "",
                 owners: [],
+                status: "To Do",
                 tags: [],
                 dueDate: "",
                 estTime: "",
@@ -115,7 +121,11 @@ const AddTask = ({ setTasks, isProject }) => {
                             <label for="project" className="form-label">Project</label>
                             <select id="project" className="form-select" name="project" value={formData.project} onChange={handleChange} aria-label="Default select example">
                                 <option selected>Select Project</option>
-                                {projects?.map(project => <option value={project?._id}>{project?.name}</option>)}
+                                {isProjectDetails ? (
+                                    <option value={projectData?._id}>{projectData?.name}</option>
+                                ) : (
+                                    projects && projects?.length > 0 && projects?.map(project => <option value={project?._id}>{project?.name}</option>)
+                                )}
                             </select>
                         </div>
                         <div className="mb-3">
@@ -132,22 +142,37 @@ const AddTask = ({ setTasks, isProject }) => {
                                 closeMenuOnSelect={false}
                                 components={animatedComponents}
                                 name="owners"
+                                value={formData.owners}
                                 onChange={handleSelectChange}
                                 isMulti
                                 options={ownersOptions}
                             />
                         </div>
-                        <div className="mb-3">
-                            <label for="tags" className="form-label">Tags</label>
-                            <Select
-                                id="tags"
-                                closeMenuOnSelect={false}
-                                components={animatedComponents}
-                                name="tags"
-                                onChange={handleSelectChange}
-                                isMulti
-                                options={tagsOptions}
-                            />
+                        <div className="row">
+                            <div className="col">
+                                <div className="mb-3">
+                                    <label for="status" className="form-label">Status</label>
+                                    <select id="status" className="form-select" name="status" value={formData.status} onChange={handleChange} aria-label="Default select example">
+                                        <option selected>Select Status</option>
+                                        {statuses?.map(status => <option value={status}>{status}</option>)}
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="col">
+                                <div className="mb-3">
+                                    <label for="tags" className="form-label">Tags</label>
+                                    <Select
+                                        id="tags"
+                                        closeMenuOnSelect={false}
+                                        components={animatedComponents}
+                                        name="tags"
+                                        value={formData.tags}
+                                        onChange={handleSelectChange}
+                                        isMulti
+                                        options={tagsOptions}
+                                    />
+                                </div>
+                            </div>
                         </div>
                         <div className="row">
                             <div className="col">
@@ -163,7 +188,7 @@ const AddTask = ({ setTasks, isProject }) => {
                     <div className="modal-footer">
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button className="btn btn-primary" disabled={loading} >
-                            {loading && <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>}
+                            {loading && <span className="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>}
                             {!loading ? "Create" : "Creating..."}
                         </button>
                     </div>

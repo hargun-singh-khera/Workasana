@@ -60,7 +60,7 @@ const Project = () => {
                                 {statuses?.map(status => (<option value={status}>{status}</option>))}
                             </select>
                             <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">+ New Task</button>
-                            <AddTask />
+                            <AddTask setTasks={setTasks} projectData={projectData} isProjectDetails />
                         </div>
                     </div>
                     <div className="table-responsive">

@@ -12,6 +12,10 @@ const Settings = () => {
     const [tasks, setTasks] = useState(null)
     const [teams, setTeams] = useState(null)
 
+    const [selectedProject, setSelectedProject] = useState("")
+    const [selectedTask, setSelectedTask] = useState("")
+    const [selectedTeam, setSelectedTeam] = useState("")
+
     useEffect(() => {
         if (projectsData) setProjects(projectsData?.projects)
         if (tasksData) setTasks(tasksData?.tasks)
@@ -21,11 +25,11 @@ const Settings = () => {
     console.log("projects", projects)
     // console.log("tasks", tasks)
     // console.log("teams", teams)
-    const statuses = ["To Do", "In Progress", "Completed", "Blocked"]
-    const projectStatuses = ["In Progress", "Completed"]
+    // const statuses = ["To Do", "In Progress", "Completed", "Blocked"]
+    // const projectStatuses = ["In Progress", "Completed"]
     
-    const [status, setStatus] = useState("")
-    const [projectStatus, setProjectStatus] = useState("")
+    // const [status, setStatus] = useState("")
+    // const [projectStatus, setProjectStatus] = useState("")
 
     return (
         <div className='container-fluid'>
@@ -42,14 +46,13 @@ const Settings = () => {
                                     </div>
                                 </div>
                             )}
-                            {!projectsLoading && projects?.length === 0 && <p>No projects found.</p>}
                             {!projectsLoading && projectsError && <p>Failed to load projects.</p>}
-                            {!projectsLoading && projects?.length > 0 && <table className="table table-striped">
+                            {!projectsLoading && projects?.length === 0 && <p>No projects found.</p>}
+                            {!projectsLoading && !projectsError && projects?.length > 0 && <table className="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">S.No</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -59,21 +62,19 @@ const Settings = () => {
                                             <th scope="row">{index + 1}</th>
                                             <td>{project?.name}</td>
                                             <td>
-                                                <select onChange={(e) => setProjectStatus(e.target.value)} className="form-select w-auto" aria-label="Default select example">
-                                                    <option selected value="">{project?.status}</option>
-                                                    {projectStatuses?.map(status => status !== project?.status && <option key={status} value={status}>{status}</option>)}
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#projectModal" className="btn btn-sm border-0 text-danger">
+                                                
+                                                <button type="button" onClick={() => setSelectedProject(project)} data-bs-toggle="modal" data-bs-target="#projectModal" className="btn btn-sm border-0 text-warning">
+                                                    <i class="bi bi-pencil-square fs-5"></i>
+                                                </button>
+                                                <button type="button" onClick={() => setSelectedProject(project)} data-bs-toggle="modal" data-bs-target="#projectModal" className="btn btn-sm border-0 text-danger">
                                                     <i className="bi bi-trash fs-5"></i>
-                                                    <DeleteAction id={project?._id} modalId={"projectModal"} setProjects={setProjects} />
                                                 </button>
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>}
+                            <DeleteAction id={selectedProject?._id} modalId={"projectModal"} setProjects={setProjects} />
                         </div>
                         <div className="col-md-5">
                             <h5 className="mt-3 mb-4">Tasks</h5>
@@ -84,14 +85,13 @@ const Settings = () => {
                                     </div>
                                 </div>
                             )}
-                            {!tasksLoading && tasks?.length === 0 && <p>No tasks found.</p>}
                             {!tasksLoading && tasksError && <p>Failed to load tasks.</p>}
-                            {!tasksLoading && tasks?.length > 0 && <table className="table table-striped">
+                            {!tasksLoading && tasks?.length === 0 && <p>No tasks found.</p>}
+                            {!tasksLoading && !tasksError && tasks?.length > 0 && <table className="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">S.No</th>
                                         <th scope="col">Name</th>
-                                        <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -101,21 +101,15 @@ const Settings = () => {
                                             <th scope="row">{index + 1}</th>
                                             <td>{task?.name}</td>
                                             <td>
-                                                <select onChange={(e) => setProjectStatus(e.target.value)} className="form-select w-auto" aria-label="Default select example">
-                                                    <option selected value="">{task?.status}</option>
-                                                    {statuses?.map(status => status !== task?.status && <option key={status} value={status}>{status}</option>)}
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#taskModal" className="btn btn-sm border-0 text-danger">
+                                                <button type="button" onClick={() => setSelectedTask(task)} data-bs-toggle="modal" data-bs-target="#taskModal" className="btn btn-sm border-0 text-danger">
                                                     <i className="bi bi-trash fs-5"></i>
-                                                    <DeleteAction id={task?._id} modalId={"taskModal"} setTasks={setTasks} />
                                                 </button>
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>}
+                            <DeleteAction id={selectedTask?._id} modalId={"taskModal"} setTasks={setTasks} />
                         </div>
                         <div className="col-md-5">
                             <h5 className="mt-3 mb-4">Teams</h5>
@@ -128,7 +122,7 @@ const Settings = () => {
                             )}
                             {!teamsLoading && teams?.length === 0 && <p>No teams found.</p>}
                             {!teamsLoading && teamsError && <p>Failed to load teams.</p>}
-                            {!teamsLoading && teams?.length > 0 && <table className="table table-striped">
+                            {!teamsLoading && !teamsError && teams?.length > 0 && <table className="table table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">S.No</th>
@@ -142,15 +136,15 @@ const Settings = () => {
                                             <th scope="row">{index + 1}</th>
                                             <td>{team?.name}</td>
                                             <td>
-                                                <button type="button" data-bs-toggle="modal" data-bs-target="#teamModal" className="btn btn-sm border-0 text-danger">
+                                                <button type="button" onClick={() => setSelectedTeam(team)} data-bs-toggle="modal" data-bs-target="#teamModal" className="btn btn-sm border-0 text-danger">
                                                     <i className="bi bi-trash fs-5"></i>
-                                                    <DeleteAction id={team?._id} modalId={"teamModal"} setTeams={setTeams} />
                                                 </button>
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>}
+                            <DeleteAction id={selectedTeam?._id} modalId={"teamModal"} setTeams={setTeams} />
                         </div>
                     </div>
                 </div>

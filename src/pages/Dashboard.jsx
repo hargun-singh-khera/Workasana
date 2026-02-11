@@ -44,7 +44,7 @@ const Dashboard = () => {
     const filteredTasks = query !== "" ? tasks.filter(task => task.name.toLowerCase().includes(query.toLowerCase())) : status === "" ? tasks : tasks.filter(task => task.status === status)
     console.log("status", status)
     const filteredProjects = query !== "" ? projects?.filter(project => project.name.toLowerCase().includes(query.toLowerCase()) || project.description.toLowerCase().includes(query.toLowerCase())) : projectStatus === "" ? projects : projects.filter(project => project.status === projectStatus)
-    // console.log("filteredTasks", filteredTasks)
+    console.log("filteredTasks", filteredTasks)
 
     
 
@@ -107,7 +107,7 @@ const Dashboard = () => {
                                 </select>
                             </div>
                             <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">+ New Task</button>
-                            <AddTask setTasks={setTasks} />
+                            <AddTask setTasks={setTasks} projects={projects} />
                         </div>
                         <div className="row">
                             {tasksLoading && (
@@ -117,10 +117,10 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             )}
-                            {!tasksLoading && tasksError && <p>Failed to load projects.</p>}
-                            {filteredTasks?.length === 0 && <p>No projects found.</p>}
+                            {!tasksLoading && tasksError && <p>Failed to load tasks.</p>}
+                            {filteredTasks?.length === 0 && <p>No tasks found.</p>}
                             {filteredTasks?.length > 0 && filteredTasks?.map((task => (
-                                <div key={task?._id} className="col-md-4">
+                                <div key={task?._id} className="col-md-4 mb-3">
                                     <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
                                         <div className="card-body">
                                             <Badge status={task?.status} />

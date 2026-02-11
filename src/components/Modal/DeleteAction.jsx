@@ -3,6 +3,7 @@ import toast from 'react-hot-toast'
 
 const DeleteAction = ({ id, modalId, setProjects, setTasks, setTeams }) => {
     const [loading, setLoading] = useState(false)
+    console.log("modalId", modalId, "id", id)
     const handleDelete = async () => {
         try {
             setLoading(true)
@@ -39,20 +40,20 @@ const DeleteAction = ({ id, modalId, setProjects, setTasks, setTeams }) => {
     }
     const name = modalId === "projectModal" ? "Project" : modalId === "taskModal" ? "Task" : "Team"
     return (
-        <div class="modal fade" id={modalId} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm {name} Deletion?</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div className="modal fade" id={modalId} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h1 className="modal-title fs-5" id="exampleModalLabel">Confirm {name} Deletion?</h1>
+                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body text-start">
+                    <div className="modal-body text-start">
                         This action can't be undone. Once deleted, this item will be permanently removed.
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <div className="modal-footer">
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="button" onClick={handleDelete}  className="btn btn-danger" disabled={loading} >
-                            {loading && <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>}
+                            {loading && <span className="spinner-border spinner-border-sm me-1" aria-hidden="true"></span>}
                             {!loading ? "Delete" : "Deleting..."}
                         </button>
                     </div>
