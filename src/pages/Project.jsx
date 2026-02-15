@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../components/Sidebar'
 import AddTask from '../components/Modal/AddTask'
-import { useLocation, useParams } from 'react-router-dom'
+import { Link, useLocation, useParams } from 'react-router-dom'
 import useFetch from '../useFetch'
 import { getFormattedDate } from './Dashboard'
 import AvatarGroup from '../components/AvatarGroup'
@@ -19,22 +19,49 @@ const Project = () => {
     const location = useLocation()
     const projectData = location?.state?.project
     const { data, loading, error } = useFetch(`https://workasana-backend-wheat.vercel.app/tasks/project/${projectId}`)
-    // console.log("data", data)
+    console.log("data", data)
 
     const [status, setStatus] = useState("")
     const statuses = ["To Do", "In Progress", "Completed", "Blocked"]
 
 
     const [tasks, setTasks] = useState(null)
+    const [priority, setPriority] = useState("")
+    const [time, setTime] = useState("")
 
     useEffect(() => {
         if (data) setTasks(data?.tasks)
     }, [data])
 
     // console.log("tasks", tasks)
+    const priorityOrder = {
+        "High": 3,
+        "Medium": 2,
+        "Low": 1,
+    }
 
-    const filteredTasks = status === "" ? tasks : tasks.filter(task => task.status === status)
+    let filteredTasks = [...data?.tasks || []] 
+   
+    console.log("filteredTasks", filteredTasks)
+    if(status !== "") {
+        filteredTasks = tasks.filter(task => task.status === status)
+    }
 
+    if(priority === "High") {
+        filteredTasks.sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority])
+    }
+    else if(priority === "Low") {
+        filteredTasks.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority])
+    }
+
+    if(time === "New") {
+        filteredTasks.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate))
+    }
+    else if(time === "Old") {
+        filteredTasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+    }
+
+    console.log("filteredTasks", filteredTasks)
     return (
         <div className='container-fluid'>
             <div className="row">
@@ -48,10 +75,10 @@ const Project = () => {
                         <div className="d-flex gap-2 align-items-center">
                             <h6>Sort by:</h6>
                             <div className="d-flex gap-2">
-                                <button type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Priority Low-High</button>
-                                <button type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Priority High-Low</button>
-                                <button type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Newest First</button>
-                                <button type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Oldest First</button>
+                                <button onClick={() => setPriority("Low")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Priority Low-High</button>
+                                <button onClick={() => setPriority("High")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Priority High-Low</button>
+                                <button onClick={() => setTime("New")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Newest First</button>
+                                <button onClick={() => setTime("Old")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Oldest First</button>
                             </div>
                         </div>
                         <div className="d-flex gap-4">
@@ -96,7 +123,11 @@ const Project = () => {
                                         </td>
                                         <td className="fw-bold">{getFormattedDate(task?.dueDate)}</td>
                                         <td>{task?.status}</td>
-                                        <td className="text-center"><i className="bi bi-arrow-right-short"></i></td>
+                                        <td className="text-center">
+                                            <Link to={`/task/${task._id}`} className="btn border-0">
+                                                <i className="bi bi-arrow-right-short"></i>
+                                            </Link>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>

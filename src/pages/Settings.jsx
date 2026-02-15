@@ -63,9 +63,9 @@ const Settings = () => {
                                             <td>{project?.name}</td>
                                             <td>
                                                 
-                                                <button type="button" onClick={() => setSelectedProject(project)} data-bs-toggle="modal" data-bs-target="#projectModal" className="btn btn-sm border-0 text-warning">
+                                                {/* <button type="button" onClick={() => setSelectedProject(project)} data-bs-toggle="modal" data-bs-target="#projectModal" className="btn btn-sm border-0 text-warning">
                                                     <i class="bi bi-pencil-square fs-5"></i>
-                                                </button>
+                                                </button> */}
                                                 <button type="button" onClick={() => setSelectedProject(project)} data-bs-toggle="modal" data-bs-target="#projectModal" className="btn btn-sm border-0 text-danger">
                                                     <i className="bi bi-trash fs-5"></i>
                                                 </button>

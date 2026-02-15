@@ -22,12 +22,12 @@ const Sidebar = () => {
                         Dashboard
                     </Link>
                 </li>
-                <li className="nav-item mb-4 ms-4 ">
+                {/* <li className="nav-item mb-4 ms-4 ">
                     <Link to={"/projects"} className="text-decoration-none text-secondary">
                         <i className="bi bi-grid-3x3-gap me-2"></i>
                         Project
                     </Link>
-                </li>
+                </li> */}
                 <li className="nav-item mb-4 ms-4 ">
                     <Link to={"/teams"} className="text-decoration-none text-secondary">
                         <i className="bi bi-people me-2"></i>

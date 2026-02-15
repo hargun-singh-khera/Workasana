@@ -15,6 +15,7 @@ import TeamDetails from './pages/TeamDetails.jsx'
 import Project from './pages/Project.jsx'
 import Reports from './pages/Reports.jsx'
 import Settings from './pages/Settings.jsx'
+import TaskDetails from './pages/TaskDetails.jsx'
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
   {
     path: "/teams",
     element: <Teams />
+  },
+  {
+    path: "/task/:taskId",
+    element: <TaskDetails />
   },
   {
     path: "/teams/:teamId",

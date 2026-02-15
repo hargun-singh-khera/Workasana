@@ -120,9 +120,9 @@ const Dashboard = () => {
                             {!tasksLoading && tasksError && <p>Failed to load tasks.</p>}
                             {filteredTasks?.length === 0 && <p>No tasks found.</p>}
                             {filteredTasks?.length > 0 && filteredTasks?.map((task => (
-                                <div key={task?._id} className="col-md-4 mb-3">
+                                <button key={task?._id} onClick={() => navigate(`/task/${task._id}`, { state: { task } })} type="button" className="col-md-4 btn border-0 mb-3">
                                     <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
-                                        <div className="card-body">
+                                        <div className="d-flex flex-column align-items-start card-body">
                                             <Badge status={task?.status} />
                                             <h5 className="card-title">{task?.name}</h5>
                                             <p className="card-text text-body-tertiary mb-3">Due on: {getFormattedDate(task?.dueDate)}</p>
@@ -133,7 +133,7 @@ const Dashboard = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </button>
                             )))}
                         </div>
                     </section>

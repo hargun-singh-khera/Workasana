@@ -15,6 +15,7 @@ const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) 
         team: "",
         owners: [],
         status: "To Do",
+        priority: "Low",
         tags: [],
         dueDate: "",
         estTime: "",
@@ -52,17 +53,19 @@ const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) 
 
     const statuses = ["To Do", "In Progress", "Completed", "Blocked"]
     console.log("formData", formData)
+    const priority = ["Low", "Medium", "High"]
 
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
             setLoading(true)
-            const { name, project, team, owners, status, tags, dueDate, estTime: timeToComplete } = formData
+            const { name, project, team, owners, status, priority, tags, dueDate, estTime: timeToComplete } = formData
             const payload = {
                 name,
                 project,
                 team,
                 status,
+                priority,
                 owners: owners.map(owner => owner.value),
                 tags: tags.map(tag => tag.value),
                 dueDate,
@@ -91,6 +94,7 @@ const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) 
                 team: "",
                 owners: [],
                 status: "To Do",
+                priority: "Low",
                 tags: [],
                 dueDate: "",
                 estTime: "",
@@ -148,32 +152,43 @@ const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) 
                                 options={ownersOptions}
                             />
                         </div>
+
                         <div className="row">
                             <div className="col">
                                 <div className="mb-3">
                                     <label for="status" className="form-label">Status</label>
                                     <select id="status" className="form-select" name="status" value={formData.status} onChange={handleChange} aria-label="Default select example">
-                                        <option selected>Select Status</option>
+                                        {/* <option selected>Select Status</option> */}
                                         {statuses?.map(status => <option value={status}>{status}</option>)}
                                     </select>
                                 </div>
                             </div>
                             <div className="col">
                                 <div className="mb-3">
-                                    <label for="tags" className="form-label">Tags</label>
-                                    <Select
-                                        id="tags"
-                                        closeMenuOnSelect={false}
-                                        components={animatedComponents}
-                                        name="tags"
-                                        value={formData.tags}
-                                        onChange={handleSelectChange}
-                                        isMulti
-                                        options={tagsOptions}
-                                    />
+                                    <label for="priority" className="form-label">Priority</label>
+                                    <select id="priority" className="form-select" name="priority" value={formData.priority} onChange={handleChange} aria-label="Default select example">
+                                        {/* <option selected>Select Status</option> */}
+                                        {priority?.map(priority => <option value={priority}>{priority}</option>)}
+                                    </select>
                                 </div>
                             </div>
                         </div>
+
+                        <div className="mb-3">
+                            <label for="tags" className="form-label">Tags</label>
+                            <Select
+                                id="tags"
+                                closeMenuOnSelect={false}
+                                components={animatedComponents}
+                                name="tags"
+                                value={formData.tags}
+                                onChange={handleSelectChange}
+                                isMulti
+                                options={tagsOptions}
+                            />
+                        </div>
+
+
                         <div className="row">
                             <div className="col">
                                 <label for="dueDate" className="form-label">Due Date</label>
