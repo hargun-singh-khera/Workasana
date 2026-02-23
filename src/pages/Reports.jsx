@@ -9,13 +9,13 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const Reports = () => {
     // const { data: lastWeekData, loading: lastWeekLoading } = useFetch("https://workasana-backend-wheat.vercel.app/report/last-week")
-    const { data: lastWeekData, loading: lastWeekLoading, error: lastWeekError } = useFetch("http://localhost:3000/report/last-week")
+    const { data: lastWeekData, loading: lastWeekLoading, error: lastWeekError } = useFetch("https://workasana-backend-wheat.vercel.app/report/last-week")
     console.log("lastWeekData", lastWeekData)
     // const { data: pendingWorkData, loading: pendingWorkLoading } = useFetch("https://workasana-backend-wheat.vercel.app/report/pending")
-    const { data: pendingWorkData, loading: pendingWorkLoading, error: pendingWorkError } = useFetch("http://localhost:3000/report/pending")
+    const { data: pendingWorkData, loading: pendingWorkLoading, error: pendingWorkError } = useFetch("https://workasana-backend-wheat.vercel.app/report/pending")
     console.log("pendingWorkData", pendingWorkData)
 
-    const { data: closedTasksData, loading: closedTasksLoading, error: closedTasksError } = useFetch("http://localhost:3000/report/closed-tasks")
+    const { data: closedTasksData, loading: closedTasksLoading, error: closedTasksError } = useFetch("https://workasana-backend-wheat.vercel.app/report/closed-tasks")
     console.log("closedTasksData", closedTasksData)
 
     const tasksClosedByTeams = closedTasksData?.tasks[0]?.closedByTeam
@@ -169,47 +169,51 @@ const Reports = () => {
                         </div>
                         <div className="col-md-5 text-center mb-5">
                             <h5 className="mt-3 mb-4">Total days of pending and completed work</h5>
-                            {pendingWorkLoading && (
+                            {pendingWorkError && <p>Failed to fetch data.</p>}
+                            {!pendingWorkError && pendingWorkLoading && (
                                 <div className="d-flex justify-content-center align-items-center">
                                     <div class="spinner-border text-secondary" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
                                 </div>
                             )}
-                            {!pendingWorkLoading && <Pie data={dataForPendingWork} />}
+                            {!pendingWorkLoading && !pendingWorkError && <Pie data={dataForPendingWork} />}
                         </div>
                         <div className="col-md-5 text-center">
                             <h5 className="mt-3 mb-4">Total tasks closed by teams</h5>
-                            {pendingWorkLoading && (
+                            {closedTasksError && <p>Failed to fetch data.</p>}
+                            {!closedTasksError && closedTasksLoading && (
                                 <div className="d-flex justify-content-center align-items-center">
                                     <div class="spinner-border text-secondary" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
                                 </div>
                             )}
-                            {!pendingWorkLoading && <Pie data={dataForTasksClosedByTeams} />}
+                            {!closedTasksLoading && !closedTasksError && <Pie data={dataForTasksClosedByTeams} />}
                         </div>
                         <div className="col-md-5 text-center mb-5">
                             <h5 className="mt-3 mb-4">Total tasks closed by owners</h5>
-                            {pendingWorkLoading && (
+                            {closedTasksError && <p>Failed to fetch data.</p>}
+                            {!closedTasksError && closedTasksLoading && (
                                 <div className="d-flex justify-content-center align-items-center">
                                     <div class="spinner-border text-secondary" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
                                 </div>
                             )}
-                            {!pendingWorkLoading && <Pie data={dataForTasksClosedByOwners} />}
+                            {!closedTasksLoading && !closedTasksError && <Pie data={dataForTasksClosedByOwners} />}
                         </div>
                         <div className="col-md-5 text-center">
                             <h5 className="mt-3 mb-4">Total tasks closed by projects</h5>
-                            {pendingWorkLoading && (
+                            {closedTasksError && <p>Failed to fetch data.</p>}
+                            {!closedTasksError && closedTasksLoading && (
                                 <div className="d-flex justify-content-center align-items-center">
                                     <div class="spinner-border text-secondary" role="status">
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
                                 </div>
                             )}
-                            {!pendingWorkLoading && <Pie data={dataForTasksClosedByProjects} />}
+                            {!closedTasksLoading && !closedTasksError && <Pie data={dataForTasksClosedByProjects} />}
                         </div>
                     </div>
                 </div>
