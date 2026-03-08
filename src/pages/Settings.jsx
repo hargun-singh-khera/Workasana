@@ -84,7 +84,6 @@ const Settings = () => {
                         </div>
                         <div className="col-md-5">
                             <h5 className="mt-3 mb-4">Tasks</h5>
-                            <AddTask setTasks={setTasks} />
                             {tasksLoading && (
                                 <div className="d-flex justify-content-center align-items-center">
                                     <div class="spinner-border text-secondary" role="status">
