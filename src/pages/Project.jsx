@@ -40,7 +40,7 @@ const Project = () => {
         "Low": 1,
     }
 
-    let filteredTasks = [...data?.tasks || []] 
+    let filteredTasks = [...tasks || []] 
    
     console.log("filteredTasks", filteredTasks)
     if(status !== "") {

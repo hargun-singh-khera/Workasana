@@ -2,24 +2,30 @@ import React, { useEffect, useState } from 'react'
 import Sidebar from '../components/Sidebar'
 import useFetch from '../useFetch'
 import DeleteAction from '../components/Modal/DeleteAction'
+import AddTask from '../components/Modal/AddTask'
+import AddTag from '../components/Modal/AddTag'
 
 const Settings = () => {
     const { data: projectsData, loading: projectsLoading, error: projectsError } = useFetch("https://workasana-backend-wheat.vercel.app/projects")
     const { data: tasksData, loading: tasksLoading, error: tasksError } = useFetch("https://workasana-backend-wheat.vercel.app/tasks")
     const { data: teamsData, loading: teamsLoading, error: teamsError } = useFetch("https://workasana-backend-wheat.vercel.app/teams")
+    const { data: tagsData, loading: tagsLoading, error: tagsError } = useFetch("https://workasana-backend-wheat.vercel.app/tags")
 
     const [projects, setProjects] = useState(null)
     const [tasks, setTasks] = useState(null)
     const [teams, setTeams] = useState(null)
+    const [tags, setTags] = useState(null)
 
     const [selectedProject, setSelectedProject] = useState("")
     const [selectedTask, setSelectedTask] = useState("")
     const [selectedTeam, setSelectedTeam] = useState("")
+    const [selectedTag, setSelectedTag] = useState("")
 
     useEffect(() => {
         if (projectsData) setProjects(projectsData?.projects)
         if (tasksData) setTasks(tasksData?.tasks)
         if (teamsData) setTeams(teamsData?.teams)
+        if (tagsData) setTags(tagsData?.tags)
     }, [projectsData, tasksData, teamsData])
 
     console.log("projects", projects)
@@ -78,6 +84,7 @@ const Settings = () => {
                         </div>
                         <div className="col-md-5">
                             <h5 className="mt-3 mb-4">Tasks</h5>
+                            <AddTask setTasks={setTasks} />
                             {tasksLoading && (
                                 <div className="d-flex justify-content-center align-items-center">
                                     <div class="spinner-border text-secondary" role="status">
@@ -110,6 +117,45 @@ const Settings = () => {
                                 </tbody>
                             </table>}
                             <DeleteAction id={selectedTask?._id} modalId={"taskModal"} setTasks={setTasks} />
+                        </div>
+                        <div className="col-md-5">
+                            <div className="d-flex justify-content-between align-items-center">
+                                <h5 className="mt-3 mb-4">Tags</h5>
+                                <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tagModalAdd">+ New Tag</button>
+                            </div>
+                            <AddTag setTags={setTags} />
+                            {tagsLoading && (
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <div class="spinner-border text-secondary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+                            )}
+                            {!tagsLoading && tags?.length === 0 && <p>No tags found.</p>}
+                            {!tagsLoading && tagsError && <p>Failed to load tags.</p>}
+                            {!tagsLoading && !tagsError && tags?.length > 0 && <table className="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">S.No</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {tags?.map((tag, index) => (
+                                        <tr>
+                                            <th scope="row">{index + 1}</th>
+                                            <td>{tag?.name}</td>
+                                            <td>
+                                                <button type="button" onClick={() => setSelectedTag(tag)} data-bs-toggle="modal" data-bs-target="#tagModal" className="btn btn-sm border-0 text-danger">
+                                                    <i className="bi bi-trash fs-5"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>}
+                            <DeleteAction id={selectedTag?._id} modalId={"tagModal"} setTags={setTags} />
                         </div>
                         <div className="col-md-5">
                             <h5 className="mt-3 mb-4">Teams</h5>

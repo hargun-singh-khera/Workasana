@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
-const DeleteAction = ({ id, modalId, setProjects, setTasks, setTeams }) => {
+const DeleteAction = ({ id, modalId, setProjects, setTasks, setTeams, setTags }) => {
     const [loading, setLoading] = useState(false)
     console.log("modalId", modalId, "id", id)
     const handleDelete = async () => {
         try {
             setLoading(true)
-            const url = modalId === "projectModal" ? `https://workasana-backend-wheat.vercel.app/project/${id}` : modalId === "taskModal" ? `https://workasana-backend-wheat.vercel.app/task/${id}` : `https://workasana-backend-wheat.vercel.app/team/${id}`
+            const url = modalId === "projectModal" ? `https://workasana-backend-wheat.vercel.app/project/${id}` : modalId === "taskModal" ? `https://workasana-backend-wheat.vercel.app/task/${id}` : modalId === "teamModal" ? `https://workasana-backend-wheat.vercel.app/team/${id}` : `http://workasana-backend-wheat.vercel.app/tag/${id}`
+            console.log("url", url)
             const response = await fetch(url, {
                 method: "DELETE",
                 headers: {
@@ -27,8 +28,11 @@ const DeleteAction = ({ id, modalId, setProjects, setTasks, setTeams }) => {
             else if(modalId === "taskModal") {
                 setTasks((prev) => prev.filter(task => task._id !== id))
             }
-            else {
+            else if(modalId === "teamModal") {
                 setTeams((prev) => prev.filter(team => team._id !== id))
+            }
+            else {
+                setTags((prev) => prev.filter(tag => tag._id !== id))
             }
             toast.success("Deleted successfully")
         } catch (error) {
@@ -38,7 +42,7 @@ const DeleteAction = ({ id, modalId, setProjects, setTasks, setTeams }) => {
             setLoading(false)
         }
     }
-    const name = modalId === "projectModal" ? "Project" : modalId === "taskModal" ? "Task" : "Team"
+    const name = modalId === "projectModal" ? "Project" : modalId === "taskModal" ? "Task" : modalId === "teamModal" ? "Team" : "Tag"
     return (
         <div className="modal fade" id={modalId} tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered">
