@@ -33,21 +33,21 @@ const Dashboard = () => {
     }, [projectsData, tasksData])
 
     // console.log("projects", projects)
-    console.log("tasks", tasks)
+    // console.log("tasks", tasks)
 
     const statuses = ["To Do", "In Progress", "Completed", "Blocked"]
     const projectStatuses = ["In Progress", "Completed"]
 
     const [status, setStatus] = useState("")
     const [projectStatus, setProjectStatus] = useState("")
+
     // console.log("projectStatus", projectStatus)
     const filteredTasks = query !== "" ? tasks.filter(task => task.name.toLowerCase().includes(query.toLowerCase())) : status === "" ? tasks : tasks.filter(task => task.status === status)
-    console.log("status", status)
+    // console.log("status", status)
+
     const filteredProjects = query !== "" ? projects?.filter(project => project.name.toLowerCase().includes(query.toLowerCase()) || project.description.toLowerCase().includes(query.toLowerCase())) : projectStatus === "" ? projects : projects.filter(project => project.status === projectStatus)
-    console.log("filteredTasks", filteredTasks)
-
-    
-
+    // console.log("filteredProjects", filteredProjects)
+    // console.log("filteredTasks", filteredTasks)
 
     return (
         <div className='container-fluid'>
@@ -83,8 +83,8 @@ const Dashboard = () => {
                                 </div>
                             )}
                             {!projectsLoading && projectsError && <p>Failed to load projects.</p>}
-                            {!projectsLoading && filteredProjects?.length === 0 && <p>No projects found.</p>}
-                            {filteredProjects?.length > 0 && filteredProjects?.map((project) => (
+                            {!projectsLoading && filteredProjects?.length === 0 && !projectsError && <p>No projects found.</p>}
+                            {!projectsError && filteredProjects?.length > 0 && filteredProjects?.map((project) => (
                                 <button key={project?._id} onClick={() => navigate(`/project/${project._id}`, { state: { project } })} type="button" className="col-md-4 btn border-0">
                                     <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
                                         <div className="card-body d-flex flex-column align-items-start">

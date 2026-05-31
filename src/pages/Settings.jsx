@@ -28,7 +28,7 @@ const Settings = () => {
         if (tagsData) setTags(tagsData?.tags)
     }, [projectsData, tasksData, teamsData])
 
-    console.log("projects", projects)
+    // console.log("projects", projects)
     // console.log("tasks", tasks)
     // console.log("teams", teams)
     // const statuses = ["To Do", "In Progress", "Completed", "Blocked"]

@@ -10,22 +10,22 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 const Reports = () => {
     // const { data: lastWeekData, loading: lastWeekLoading } = useFetch("https://workasana-backend-wheat.vercel.app/report/last-week")
     const { data: lastWeekData, loading: lastWeekLoading, error: lastWeekError } = useFetch("https://workasana-backend-wheat.vercel.app/report/last-week")
-    console.log("lastWeekData", lastWeekData)
+    // console.log("lastWeekData", lastWeekData)
     // const { data: pendingWorkData, loading: pendingWorkLoading } = useFetch("https://workasana-backend-wheat.vercel.app/report/pending")
     const { data: pendingWorkData, loading: pendingWorkLoading, error: pendingWorkError } = useFetch("https://workasana-backend-wheat.vercel.app/report/pending")
-    console.log("pendingWorkData", pendingWorkData)
+    // console.log("pendingWorkData", pendingWorkData)
 
     const { data: closedTasksData, loading: closedTasksLoading, error: closedTasksError } = useFetch("https://workasana-backend-wheat.vercel.app/report/closed-tasks")
-    console.log("closedTasksData", closedTasksData)
+    // console.log("closedTasksData", closedTasksData)
 
     const tasksClosedByTeams = closedTasksData?.tasks[0]?.closedByTeam
-    console.log("tasksClosedByTeams", tasksClosedByTeams)
+    // console.log("tasksClosedByTeams", tasksClosedByTeams)
 
     const tasksClosedByOwners = closedTasksData?.tasks[0]?.closedByOwners
-    console.log("tasksClosedByOwners", tasksClosedByOwners)
+    // console.log("tasksClosedByOwners", tasksClosedByOwners)
 
     const tasksClosedByProjects = closedTasksData?.tasks[0]?.closedByProject
-    console.log("tasksClosedByProjects", tasksClosedByProjects)
+    // console.log("tasksClosedByProjects", tasksClosedByProjects)
 
 
     // console.log("lastWeekData", lastWeekData)

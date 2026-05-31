@@ -18,7 +18,7 @@ const Teams = () => {
         if (teamsData) setTeams(teamsData?.teams)
     }, [teamsData])
     
-    console.log("teams", teams)
+    // console.log("teams", teams)
     
     return (
         <div className='container-fluid'>

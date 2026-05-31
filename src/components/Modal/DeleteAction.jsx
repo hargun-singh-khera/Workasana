@@ -3,12 +3,12 @@ import toast from 'react-hot-toast'
 
 const DeleteAction = ({ id, modalId, setProjects, setTasks, setTeams, setTags }) => {
     const [loading, setLoading] = useState(false)
-    console.log("modalId", modalId, "id", id)
+    // console.log("modalId", modalId, "id", id)
     const handleDelete = async () => {
         try {
             setLoading(true)
             const url = modalId === "projectModal" ? `https://workasana-backend-wheat.vercel.app/project/${id}` : modalId === "taskModal" ? `https://workasana-backend-wheat.vercel.app/task/${id}` : modalId === "teamModal" ? `https://workasana-backend-wheat.vercel.app/team/${id}` : `http://workasana-backend-wheat.vercel.app/tag/${id}`
-            console.log("url", url)
+            // console.log("url", url)
             const response = await fetch(url, {
                 method: "DELETE",
                 headers: {
@@ -16,12 +16,12 @@ const DeleteAction = ({ id, modalId, setProjects, setTasks, setTeams, setTags })
                     "Authorization": localStorage.getItem("token"),
                 }
             })
-            console.log("response", response)
+            // console.log("response", response)
             if(!response.ok) {
                 throw new Error("Failed to delete")
             }
             const data = await response.json()
-            console.log("data", data)
+            // console.log("data", data)
             if(modalId === "projectModal") {
                 setProjects((prev) => prev.filter(project => project._id !== id))
             }

@@ -22,12 +22,12 @@ const AddTag = ({ setTags }) => {
                 },
                 body: JSON.stringify({ name })
             })
-            console.log("response", response)
+            // console.log("response", response)
             if (!response.ok) {
                 throw new Error("Failed to add tag")
             }
             const data = await response.json()
-            console.log("data", data)
+            // console.log("data", data)
             toast.success("Tag created successfully")
             setTags((prev) => [...prev, data?.tag])
             setName("")

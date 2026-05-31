@@ -19,15 +19,16 @@ const Project = () => {
     const location = useLocation()
     const projectData = location?.state?.project
     const { data, loading, error } = useFetch(`https://workasana-backend-wheat.vercel.app/tasks/project/${projectId}`)
-    console.log("data", data)
+    // console.log("data", data)
 
     const [status, setStatus] = useState("")
     const statuses = ["To Do", "In Progress", "Completed", "Blocked"]
 
 
     const [tasks, setTasks] = useState(null)
-    const [priority, setPriority] = useState("")
-    const [time, setTime] = useState("")
+    // const [priority, setPriority] = useState("")
+    // const [time, setTime] = useState("")
+    const [sortBy, setSortBy] = useState("")
 
     useEffect(() => {
         if (data) setTasks(data?.tasks)
@@ -40,28 +41,28 @@ const Project = () => {
         "Low": 1,
     }
 
-    let filteredTasks = [...tasks || []] 
-   
-    console.log("filteredTasks", filteredTasks)
-    if(status !== "") {
+    let filteredTasks = [...tasks || []]
+
+    if (status !== "") {
         filteredTasks = tasks.filter(task => task.status === status)
     }
-
-    if(priority === "High") {
+    if (sortBy === "High") {
         filteredTasks.sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority])
     }
-    else if(priority === "Low") {
+    else if (sortBy === "Low") {
         filteredTasks.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority])
     }
+    // console.log("priority", priority)
 
-    if(time === "New") {
+    if (sortBy === "New") {
         filteredTasks.sort((a, b) => new Date(b.dueDate) - new Date(a.dueDate))
     }
-    else if(time === "Old") {
+    else if (sortBy === "Old") {
         filteredTasks.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
     }
 
-    console.log("filteredTasks", filteredTasks)
+    // console.log("filteredTasks", filteredTasks)
+
     return (
         <div className='container-fluid'>
             <div className="row">
@@ -75,10 +76,10 @@ const Project = () => {
                         <div className="d-flex gap-2 align-items-center">
                             <h6>Sort by:</h6>
                             <div className="d-flex gap-2">
-                                <button onClick={() => setPriority("Low")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Priority Low-High</button>
-                                <button onClick={() => setPriority("High")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Priority High-Low</button>
-                                <button onClick={() => setTime("New")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Newest First</button>
-                                <button onClick={() => setTime("Old")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Oldest First</button>
+                                <button onClick={() => setSortBy("Low")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Priority Low-High</button>
+                                <button onClick={() => setSortBy("High")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Priority High-Low</button>
+                                <button onClick={() => setSortBy("New")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Newest First</button>
+                                <button onClick={() => setSortBy("Old")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Oldest First</button>
                             </div>
                         </div>
                         <div className="d-flex gap-4">
@@ -90,7 +91,7 @@ const Project = () => {
                             <AddTask setTasks={setTasks} projectData={projectData} isProjectDetails />
                         </div>
                     </div>
-                    <div className="table-responsive">
+                    <div>
                         {loading && (
                             <div className="d-flex justify-content-center align-items-center">
                                 <div class="spinner-border text-secondary" role="status">
@@ -99,39 +100,41 @@ const Project = () => {
                             </div>
                         )}
                         {!loading && filteredTasks?.length === 0 && <p>No tasks found</p>}
-                        {!loading && filteredTasks?.length > 0 && <table className="table table-bordered rounded-3">
-                            <thead className="table-light">
-                                <tr>
-                                    <th scope="col">TASKS</th>
-                                    <th scope="col">OWNER</th>
-                                    <th scope="col">PRIORITY</th>
-                                    <th scope="col">DUE ON</th>
-                                    <th scope="col" colspan="2">STATUS</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredTasks?.map(task => (
+                        {!loading && filteredTasks?.length > 0 && <div className="table-responsive">
+                            <table className="table table-bordered rounded-3">
+                                <thead className="table-light">
                                     <tr>
-                                        <td>{task?.name}</td>
-                                        <td><div className="d-flex">
-                                            {task?.owners?.slice(0, 4)?.map((owner, index) => (
-                                                <AvatarGroup key={index} index={index} total={task?.owners?.length} member={owner?.name} countLabel={task?.owners?.length > 3 ? task?.owners?.length - 3 : 0} />
-                                            ))}
-                                        </div></td>
-                                        <td>
-                                            <Badge priority={task?.priority} />
-                                        </td>
-                                        <td className="fw-bold">{getFormattedDate(task?.dueDate)}</td>
-                                        <td>{task?.status}</td>
-                                        <td className="text-center">
-                                            <Link to={`/task/${task._id}`} className="btn border-0">
-                                                <i className="bi bi-arrow-right-short"></i>
-                                            </Link>
-                                        </td>
+                                        <th scope="col">TASKS</th>
+                                        <th scope="col">OWNER</th>
+                                        <th scope="col">PRIORITY</th>
+                                        <th scope="col">DUE ON</th>
+                                        <th scope="col" colspan="2">STATUS</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>}
+                                </thead>
+                                <tbody>
+                                    {filteredTasks?.map(task => (
+                                        <tr>
+                                            <td>{task?.name}</td>
+                                            <td><div className="d-flex">
+                                                {task?.owners?.slice(0, 4)?.map((owner, index) => (
+                                                    <AvatarGroup key={index} index={index} total={task?.owners?.length} member={owner?.name} countLabel={task?.owners?.length > 3 ? task?.owners?.length - 3 : 0} />
+                                                ))}
+                                            </div></td>
+                                            <td>
+                                                <Badge priority={task?.priority} />
+                                            </td>
+                                            <td className="fw-bold">{getFormattedDate(task?.dueDate)}</td>
+                                            <td>{task?.status}</td>
+                                            <td className="text-center">
+                                                <Link to={`/task/${task._id}`} className="btn border-0">
+                                                    <i className="bi bi-arrow-right-short"></i>
+                                                </Link>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>}
                     </div>
                 </div>
             </div>

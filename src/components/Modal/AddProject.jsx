@@ -32,12 +32,12 @@ const AddProject = ({ setProjects }) => {
                 },
                 body: JSON.stringify(formData)
             })
-            console.log("response", response)
+            // console.log("response", response)
             if (!response.ok) {
                 throw new Error("Failed to add project")
             }
             const data = await response.json()
-            console.log("data", data)
+            // console.log("data", data)
             toast.success("Project created successfully")
             setProjects((prev) => [...prev, data?.project])
             setFormData({ name: "", description: "" });

@@ -13,7 +13,7 @@ const AddTeam = ({ setTeams }) => {
     // console.log("usersData", usersData)
     const users = usersData?.users
 
-    console.log("users", users)
+    // console.log("users", users)
 
     const [loading, setLoading] = useState(false)
 
@@ -25,7 +25,7 @@ const AddTeam = ({ setTeams }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target
-        console.log("name", name, "value", value)
+        // console.log("name", name, "value", value)
         setFormData(prev => ({ ...prev, [name]: value }))
     }
 
@@ -37,7 +37,7 @@ const AddTeam = ({ setTeams }) => {
     }
 
     const membersOptions = users?.map(user => ({ value: user.name, label: user.name }));
-    console.log("formData", formData)
+    // console.log("formData", formData)
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { name, description, members } = formData
@@ -56,7 +56,7 @@ const AddTeam = ({ setTeams }) => {
                 description,
                 members: members?.map(member => ({ name: member.value }))
             }
-            console.log("payload", payload)
+            // console.log("payload", payload)
             const response = await fetch("https://workasana-backend-wheat.vercel.app/teams", {
                 method: "POST",
                 headers: {
@@ -65,12 +65,12 @@ const AddTeam = ({ setTeams }) => {
                 },
                 body: JSON.stringify(payload)
             })
-            console.log("response", response)
+            // console.log("response", response)
             if(!response.ok) {
                 throw new Error("Failed to add team")
             }
             const data = await response.json()
-            console.log("data", data)
+            // console.log("data", data)
             setTeams((prev) => [...prev, data?.team])
             toast.success("Team created successfully")
             setFormData({

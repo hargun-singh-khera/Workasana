@@ -5,12 +5,12 @@ import AddMember from '../components/Modal/AddMember'
 
 const TeamDetails = () => {
     const location = useLocation()
-    console.log("loc", location)
+    // console.log("loc", location)
     const team = location.state.team
-    console.log("team", team)
+    // console.log("team", team)
 
     const [members, setMembers] = useState(team?.members || null)
-    console.log("members", members)
+    // console.log("members", members)
     return (
         <div className='container-fluid'>
             <div className="row">

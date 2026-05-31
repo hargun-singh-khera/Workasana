@@ -10,7 +10,7 @@ const TaskDetails = () => {
     const { taskId } = useParams()
     const { data, loading, error } = useFetch(`https://workasana-backend-wheat.vercel.app/task/${taskId}`)
     const [task, setTask] = useState(null)
-    console.log("task", task)
+    // console.log("task", task)
 
     useEffect(() => {
         if (data) {
@@ -29,12 +29,12 @@ const TaskDetails = () => {
                 },
                 body: JSON.stringify({ ...task, status: "Completed" })
             })
-            console.log("response", response)
+            // console.log("response", response)
             if (!response.ok) {
                 throw new Error("Failed to update task status")
             }
             const data = await response.json()
-            console.log("data", data)
+            // console.log("data", data)
             setTask(prev => ({ ...prev, status: "Completed" }))
             toast.success("Task marked completed")
         } catch (error) {

@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) => {
     const animatedComponents = makeAnimated();
 
-    console.log("projectData", projectData)
+    // console.log("projectData", projectData)
 
     const [formData, setFormData] = useState({
         name: "",
@@ -52,7 +52,7 @@ const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) 
     const tagsOptions = tags?.map((tag) => ({ value: tag?._id, label: tag?.name.slice(0, 1).toUpperCase() + tag?.name?.slice(1) }))
 
     const statuses = ["To Do", "In Progress", "Completed", "Blocked"]
-    console.log("formData", formData)
+    // console.log("formData", formData)
     const priority = ["Low", "Medium", "High"]
 
     const handleSubmit = async (e) => {
@@ -71,7 +71,7 @@ const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) 
                 dueDate,
                 timeToComplete,
             }
-            console.log("payload", payload)
+            // console.log("payload", payload)
             const response = await fetch("https://workasana-backend-wheat.vercel.app/tasks", {
                 method: "POST",
                 headers: {
@@ -80,12 +80,12 @@ const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) 
                 },
                 body: JSON.stringify(payload)
             })
-            console.log("response", response)
+            // console.log("response", response)
             if (!response.ok) {
                 throw new Error("Failed to create task")
             }
             const data = await response.json()
-            console.log("data", data)
+            // console.log("data", data)
             toast.success("Task created successfully")
             setTasks((prev) => [...prev, data.task])
             setFormData({
