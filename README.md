@@ -1,16 +1,181 @@
-# React + Vite
+# Workasana Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Workasana is a task management dashboard built for teams that need a simple way to organize work, track ownership, and monitor progress. This repository contains the React frontend for Workasana, including authentication screens, project and task workflows, team management, reporting charts, and settings for managing core workspace data.
 
-Currently, two official plugins are available:
+The app connects to a deployed Workasana backend API and uses JWT-based authentication to protect the main dashboard experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Demo Link
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Live Demo: `https://workasana-henna.vercel.app`
 
-## Expanding the ESLint configuration
+Backend API: `https://workasana-backend-wheat.vercel.app`
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## Login
+
+You can create a new account from the signup page, then log in with the registered email and password.
+
+---
+
+## Quick Start
+
+```bash
+git clone https://github.com/hargun-singh-khera/Workasana.git
+cd Workasana
+npm install
+npm run dev
+```
+
+The development server will start on the Vite local URL, usually:
+
+```bash
+http://localhost:5173
+```
+
+To create a production build:
+
+```bash
+npm run build
+```
+
+To preview the production build locally:
+
+```bash
+npm run preview
+```
+
+---
+
+## Technologies
+
+- React JS
+- Vite
+- React Router
+- Bootstrap
+- Bootstrap Icons
+- Chart.js
+- React Chart.js 2
+- React Hot Toast
+- React Select
+- JWT authentication
+
+---
+
+## Features
+
+### Authentication
+
+- User signup and login
+- JWT token stored on successful login
+- Protected dashboard route for authenticated users
+- Login form validation and user feedback with toast notifications
+
+### Dashboard
+
+- View all projects and tasks in one place
+- Search projects and tasks by keyword
+- Filter projects by status
+- Filter tasks by status
+- Create new projects and tasks from modal forms
+- Navigate directly to project and task details
+
+### Projects
+
+- View project details with related tasks
+- Create tasks inside a selected project
+- Filter project tasks by status
+- Sort tasks by priority and due date
+- View task owners with compact avatar groups
+
+### Tasks
+
+- View full task details, including project, team, owners, tags, status, and estimated completion time
+- Mark a task as completed
+- Create tasks with project, team, owner, tag, priority, status, and due date data
+
+### Teams
+
+- View all teams
+- Create new teams
+- View team members
+- Add members to an existing team
+- Open team details from the team listing page
+
+### Reports
+
+- Visual reports using pie charts
+- Completed vs pending tasks from the last week
+- Pending and completed work duration
+- Tasks closed by team
+- Tasks closed by owner
+- Tasks closed by project
+
+### Settings
+
+- Manage projects, tasks, teams, and tags
+- Add new tags
+- Delete existing workspace records from a central settings screen
+
+---
+
+## Project Structure
+
+```bash
+src
+|-- components
+|   |-- Modal
+|   |   |-- AddMember.jsx
+|   |   |-- AddProject.jsx
+|   |   |-- AddTag.jsx
+|   |   |-- AddTask.jsx
+|   |   |-- AddTeam.jsx
+|   |   |-- DeleteAction.jsx
+|   |   `-- EditProject.jsx
+|   |-- AvatarGroup.jsx
+|   |-- Badge.jsx
+|   `-- Sidebar.jsx
+|-- pages
+|   |-- Dashboard.jsx
+|   |-- Login.jsx
+|   |-- Project.jsx
+|   |-- Reports.jsx
+|   |-- Settings.jsx
+|   |-- Signup.jsx
+|   |-- TaskDetails.jsx
+|   |-- TeamDetails.jsx
+|   `-- Teams.jsx
+|-- useFetch.jsx
+|-- main.jsx
+`-- index.css
+```
+
+---
+
+## Routes
+
+| Route | Description |
+| --- | --- |
+| `/` | Login page |
+| `/signup` | User registration page |
+| `/dashboard` | Main dashboard with projects and tasks |
+| `/project/:projectId` | Project details and project-specific tasks |
+| `/task/:taskId` | Task details page |
+| `/teams` | Team listing page |
+| `/teams/:teamId` | Team details page |
+| `/reports` | Analytics and reporting dashboard |
+| `/settings` | Workspace data management |
+
+---
+
+## Backend
+
+This frontend is connected to a separate Workasana backend API. Backend setup, environment variables, database configuration, and endpoint documentation should be maintained in the backend repository README.
+
+---
+
+## Contact
+
+For bugs, suggestions, or feature requests, please reach out to hargunsinghkhera8@gmail.com.
