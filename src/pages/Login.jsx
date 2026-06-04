@@ -54,7 +54,7 @@ const Login = () => {
 
     return (
         <div className='container d-flex flex-column justify-content-center align-items-center min-vh-100'>
-            <h3 style={{ color: "blueviolet"}}>workasana</h3>
+            <h3 style={{ color: "blueviolet"}}>TaskZen</h3>
             <h2>Log in to your account</h2>
             <p>Please enter your details.</p>
 

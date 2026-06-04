@@ -1,6 +1,6 @@
-# Workasana Frontend
+# TaskZen Frontend
 
-Workasana is a task management dashboard built for teams that need a simple way to organize work, track ownership, and monitor progress. This repository contains the React frontend for Workasana, including authentication screens, project and task workflows, team management, reporting charts, and settings for managing core workspace data.
+TaskZen is a task management dashboard built for teams that need a simple way to organize work, track ownership, and monitor progress. This repository contains the React frontend for TaskZen, including authentication screens, project and task workflows, team management, reporting charts, and settings for managing core workspace data.
 
 The app connects to a deployed Workasana backend API and uses JWT-based authentication to protect the main dashboard experience.
 
@@ -8,7 +8,7 @@ The app connects to a deployed Workasana backend API and uses JWT-based authenti
 
 ## Demo Link
 
-Live Demo: `https://workasana-henna.vercel.app`
+Live Demo: `https://taskzen-henna.vercel.app`
 
 Backend API: `https://workasana-backend-wheat.vercel.app`
 
@@ -23,8 +23,8 @@ You can create a new account from the signup page, then log in with the register
 ## Quick Start
 
 ```bash
-git clone https://github.com/hargun-singh-khera/Workasana.git
-cd Workasana
+git clone https://github.com/hargun-singh-khera/TaskZen.git
+cd TaskZen
 npm install
 npm run dev
 ```

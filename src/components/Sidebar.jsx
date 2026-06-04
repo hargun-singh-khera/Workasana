@@ -14,7 +14,7 @@ const Sidebar = () => {
 
     return (
         <div className="col-md-2 min-vh-100" style={{ backgroundColor: "#f3f4f6" }}>
-            <h3 style={{ color: "blueviolet" }} className="ms-4  py-4 mb-4">workasana</h3>
+            <h3 style={{ color: "blueviolet" }} className="ms-4  py-4 mb-4">TaskZen</h3>
             <ul className="navbar-nav">
                 <li className="nav-item mb-4 ms-4 ">
                     <Link to={"/dashboard"} className="text-decoration-none text-secondary">
