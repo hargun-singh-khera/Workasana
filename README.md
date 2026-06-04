@@ -2,7 +2,7 @@
 
 TaskZen is a task management dashboard built for teams that need a simple way to organize work, track ownership, and monitor progress. This repository contains the React frontend for TaskZen, including authentication screens, project and task workflows, team management, reporting charts, and settings for managing core workspace data.
 
-The app connects to a deployed Workasana backend API and uses JWT-based authentication to protect the main dashboard experience.
+The app connects to a deployed TaskZen backend API and uses JWT-based authentication to protect the main dashboard experience.
 
 ---
 
@@ -10,7 +10,7 @@ The app connects to a deployed Workasana backend API and uses JWT-based authenti
 
 Live Demo: `https://taskzen-henna.vercel.app`
 
-Backend API: `https://workasana-backend-wheat.vercel.app`
+Backend API: `https://taskzen-backend-wheat.vercel.app`
 
 ---
 
@@ -172,7 +172,7 @@ src
 
 ## Backend
 
-This frontend is connected to a separate Workasana backend API. Backend setup, environment variables, database configuration, and endpoint documentation should be maintained in the backend repository README.
+This frontend is connected to a separate TaskZen backend API. Backend setup, environment variables, database configuration, and endpoint documentation should be maintained in the backend repository README.
 
 ---
 

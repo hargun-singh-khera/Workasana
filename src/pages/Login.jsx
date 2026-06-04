@@ -25,7 +25,7 @@ const Login = () => {
         else {
             try {
                 setLoading(true)
-                const response = await fetch("https://workasana-backend-wheat.vercel.app/auth/login", {
+                const response = await fetch("https://taskzen-backend-wheat.vercel.app/auth/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",

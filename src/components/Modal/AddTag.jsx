@@ -14,7 +14,7 @@ const AddTag = ({ setTags }) => {
         }
         try {
             setLoading(true)
-            const response = await fetch("https://workasana-backend-wheat.vercel.app/tags", {
+            const response = await fetch("https://taskzen-backend-wheat.vercel.app/tags", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

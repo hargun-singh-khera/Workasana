@@ -9,7 +9,7 @@ import AvatarGroup from '../components/AvatarGroup'
 const Teams = () => {
 
     const navigate = useNavigate()
-    const { data: teamsData, loading, error } = useFetch("https://workasana-backend-wheat.vercel.app/teams")
+    const { data: teamsData, loading, error } = useFetch("https://taskzen-backend-wheat.vercel.app/teams")
 
     // const teams = teamsData?.teams
     const [teams, setTeams] = useState([])

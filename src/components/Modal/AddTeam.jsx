@@ -6,10 +6,10 @@ import toast from 'react-hot-toast';
 
 const AddTeam = ({ setTeams }) => {
     const animatedComponents = makeAnimated();
-    const { data: teamsData } = useFetch("https://workasana-backend-wheat.vercel.app/teams")
+    const { data: teamsData } = useFetch("https://taskzen-backend-wheat.vercel.app/teams")
     // const teams = teamsData?.teams
 
-    const { data: usersData } = useFetch("https://workasana-backend-wheat.vercel.app/users")
+    const { data: usersData } = useFetch("https://taskzen-backend-wheat.vercel.app/users")
     // console.log("usersData", usersData)
     const users = usersData?.users
 
@@ -57,7 +57,7 @@ const AddTeam = ({ setTeams }) => {
                 members: members?.map(member => ({ name: member.value }))
             }
             // console.log("payload", payload)
-            const response = await fetch("https://workasana-backend-wheat.vercel.app/teams", {
+            const response = await fetch("https://taskzen-backend-wheat.vercel.app/teams", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

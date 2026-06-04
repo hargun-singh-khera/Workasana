@@ -15,10 +15,10 @@ const Badge = ({ priority }) => {
 const Project = () => {
     const { projectId } = useParams()
     // console.log("projectId", projectId)
-    // const { data: projectData, loading: projectLoading, error: projectError } = useFetch(`https://workasana-backend-wheat.vercel.app/project/${projectId}`)
+    // const { data: projectData, loading: projectLoading, error: projectError } = useFetch(`https://taskzen-backend-wheat.vercel.app/project/${projectId}`)
     const location = useLocation()
     const projectData = location?.state?.project
-    const { data, loading, error } = useFetch(`https://workasana-backend-wheat.vercel.app/tasks/project/${projectId}`)
+    const { data, loading, error } = useFetch(`https://taskzen-backend-wheat.vercel.app/tasks/project/${projectId}`)
     // console.log("data", data)
 
     const [status, setStatus] = useState("")

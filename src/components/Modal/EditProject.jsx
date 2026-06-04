@@ -24,7 +24,7 @@ const EditProject = ({ setProjects }) => {
         }
         try {
             setLoading(true)
-            const response = await fetch("https://workasana-backend-wheat.vercel.app/projects", {
+            const response = await fetch("https://taskzen-backend-wheat.vercel.app/projects", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

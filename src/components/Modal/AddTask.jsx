@@ -36,10 +36,10 @@ const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) 
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
-    // const { data: projectsData } = useFetch("https://workasana-backend-wheat.vercel.app/projects")
-    const { data: teamsData } = useFetch("https://workasana-backend-wheat.vercel.app/teams")
-    const { data: tagsData } = useFetch("https://workasana-backend-wheat.vercel.app/tags")
-    const { data: ownersData } = useFetch("https://workasana-backend-wheat.vercel.app/users")
+    // const { data: projectsData } = useFetch("https://taskzen-backend-wheat.vercel.app/projects")
+    const { data: teamsData } = useFetch("https://taskzen-backend-wheat.vercel.app/teams")
+    const { data: tagsData } = useFetch("https://taskzen-backend-wheat.vercel.app/tags")
+    const { data: ownersData } = useFetch("https://taskzen-backend-wheat.vercel.app/users")
 
     // const projects = projectsData?.projects
     const teams = teamsData?.teams
@@ -72,7 +72,7 @@ const AddTask = ({ setTasks, projects, projectData, isProjectDetails = false }) 
                 timeToComplete,
             }
             // console.log("payload", payload)
-            const response = await fetch("https://workasana-backend-wheat.vercel.app/tasks", {
+            const response = await fetch("https://taskzen-backend-wheat.vercel.app/tasks", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

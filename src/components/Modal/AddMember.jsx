@@ -17,7 +17,7 @@ const AddMember = ({ members, setMembers, teamId }) => {
             const result = JSON.stringify({name})
             // console.log("result", result)
             // console.log("token", localStorage.getItem("token"))
-            const response = await fetch(`https://workasana-backend-wheat.vercel.app/teams/${teamId}/member`, {
+            const response = await fetch(`https://taskzen-backend-wheat.vercel.app/teams/${teamId}/member`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

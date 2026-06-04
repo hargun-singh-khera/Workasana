@@ -6,10 +6,10 @@ import AddTask from '../components/Modal/AddTask'
 import AddTag from '../components/Modal/AddTag'
 
 const Settings = () => {
-    const { data: projectsData, loading: projectsLoading, error: projectsError } = useFetch("https://workasana-backend-wheat.vercel.app/projects")
-    const { data: tasksData, loading: tasksLoading, error: tasksError } = useFetch("https://workasana-backend-wheat.vercel.app/tasks")
-    const { data: teamsData, loading: teamsLoading, error: teamsError } = useFetch("https://workasana-backend-wheat.vercel.app/teams")
-    const { data: tagsData, loading: tagsLoading, error: tagsError } = useFetch("https://workasana-backend-wheat.vercel.app/tags")
+    const { data: projectsData, loading: projectsLoading, error: projectsError } = useFetch("https://taskzen-backend-wheat.vercel.app/projects")
+    const { data: tasksData, loading: tasksLoading, error: tasksError } = useFetch("https://taskzen-backend-wheat.vercel.app/tasks")
+    const { data: teamsData, loading: teamsLoading, error: teamsError } = useFetch("https://taskzen-backend-wheat.vercel.app/teams")
+    const { data: tagsData, loading: tagsLoading, error: tagsError } = useFetch("https://taskzen-backend-wheat.vercel.app/tags")
 
     const [projects, setProjects] = useState(null)
     const [tasks, setTasks] = useState(null)

@@ -8,14 +8,14 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 const Reports = () => {
-    // const { data: lastWeekData, loading: lastWeekLoading } = useFetch("https://workasana-backend-wheat.vercel.app/report/last-week")
-    const { data: lastWeekData, loading: lastWeekLoading, error: lastWeekError } = useFetch("https://workasana-backend-wheat.vercel.app/report/last-week")
+    // const { data: lastWeekData, loading: lastWeekLoading } = useFetch("https://taskzen-backend-wheat.vercel.app/report/last-week")
+    const { data: lastWeekData, loading: lastWeekLoading, error: lastWeekError } = useFetch("https://taskzen-backend-wheat.vercel.app/report/last-week")
     // console.log("lastWeekData", lastWeekData)
-    // const { data: pendingWorkData, loading: pendingWorkLoading } = useFetch("https://workasana-backend-wheat.vercel.app/report/pending")
-    const { data: pendingWorkData, loading: pendingWorkLoading, error: pendingWorkError } = useFetch("https://workasana-backend-wheat.vercel.app/report/pending")
+    // const { data: pendingWorkData, loading: pendingWorkLoading } = useFetch("https://taskzen-backend-wheat.vercel.app/report/pending")
+    const { data: pendingWorkData, loading: pendingWorkLoading, error: pendingWorkError } = useFetch("https://taskzen-backend-wheat.vercel.app/report/pending")
     // console.log("pendingWorkData", pendingWorkData)
 
-    const { data: closedTasksData, loading: closedTasksLoading, error: closedTasksError } = useFetch("https://workasana-backend-wheat.vercel.app/report/closed-tasks")
+    const { data: closedTasksData, loading: closedTasksLoading, error: closedTasksError } = useFetch("https://taskzen-backend-wheat.vercel.app/report/closed-tasks")
     // console.log("closedTasksData", closedTasksData)
 
     const tasksClosedByTeams = closedTasksData?.tasks[0]?.closedByTeam
