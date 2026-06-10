@@ -68,7 +68,10 @@ const Project = () => {
             <div className="row">
                 <Sidebar />
                 <div className="col-12 col-md-10 px-md-5 my-5">
-                    <div>
+                    <Link to={"/dashboard"} className="text-decoration-none">
+                        <i className="bi bi-arrow-left me-2"></i>Back to Dashboard
+                    </Link>
+                    <div className="mt-4">
                         <h3 className="fs-4 fs-md-3">{projectData?.name}</h3>
                         <p className="text-muted small">{projectData?.description}</p>
                     </div>
@@ -99,7 +102,8 @@ const Project = () => {
                                 </div>
                             </div>
                         )}
-                        {!loading && filteredTasks?.length === 0 && <p>No tasks found</p>}
+                        {error && <p>{error}</p>}
+                        {!loading && !error && filteredTasks?.length === 0 && <p>No tasks found</p>}
                         {!loading && filteredTasks?.length > 0 && <div className="table-responsive" style={{ overflowX: 'auto' }}>
                             <table className="table table-bordered table-hover align-middle rounded-3 w-100" >
                                 <thead className="table-light">

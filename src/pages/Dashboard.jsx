@@ -118,8 +118,8 @@ const Dashboard = () => {
                                 </div>
                             )}
                             {!tasksLoading && tasksError && <p>Failed to load tasks.</p>}
-                            {filteredTasks?.length === 0 && <p>No tasks found.</p>}
-                            {filteredTasks?.length > 0 && filteredTasks?.map((task => (
+                            {filteredTasks?.length === 0 && !tasksError && <p>No tasks found.</p>}
+                            {!tasksError && filteredTasks?.length > 0 && filteredTasks?.map((task => (
                                 <button key={task?._id} onClick={() => navigate(`/task/${task._id}`, { state: { task } })} type="button" className="col-md-4 btn border-0 mb-3">
                                     <div className="card border-0 rounded-4 p-1 shadow-sm" style={{ backgroundColor: "#F8FAFC" }}>
                                         <div className="d-flex flex-column align-items-start card-body">

@@ -1,7 +1,7 @@
 import React from 'react'
 import Sidebar from '../components/Sidebar'
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import useFetch from '../useFetch'
 import toast from 'react-hot-toast'
@@ -49,6 +49,9 @@ const TaskDetails = () => {
                 <Sidebar />
 
                 <div className="col-md-10 px-md-5 my-5">
+                    <Link to={"/dashboard"} className="text-decoration-none">
+                        <i className="bi bi-arrow-left me-2"></i>Back to Dashboard
+                    </Link>
                     {loading && (
                         <div className="d-flex justify-content-center align-items-center my-5">
                             <div class="spinner-border text-secondary" role="status">
@@ -58,7 +61,7 @@ const TaskDetails = () => {
                     )}
                     {!loading && error && <p>Failed to load task data.</p>}
                     {!loading && !error && <div>
-                        <div className="d-flex justify-content-between align-items-center mb-4">
+                        <div className="d-flex justify-content-between align-items-center my-4">
                             <div>
                                 <h2 className="mb-1">Task: {task?.name}</h2>
                             </div>
