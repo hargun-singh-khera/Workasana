@@ -7,7 +7,7 @@ const DeleteAction = ({ id, modalId, setProjects, setTasks, setTeams, setTags })
     const handleDelete = async () => {
         try {
             setLoading(true)
-            const url = modalId === "projectModal" ? `https://taskzen-backend-wheat.vercel.app/project/${id}` : modalId === "taskModal" ? `https://taskzen-backend-wheat.vercel.app/task/${id}` : modalId === "teamModal" ? `https://taskzen-backend-wheat.vercel.app/team/${id}` : `http://workasana-backend-wheat.vercel.app/tag/${id}`
+            const url = modalId === "projectModal" ? `https://taskzen-backend-wheat.vercel.app/project/${id}` : modalId === "taskModal" ? `https://taskzen-backend-wheat.vercel.app/task/${id}` : modalId === "teamModal" ? `https://taskzen-backend-wheat.vercel.app/team/${id}` : `https://taskzen-backend-wheat.vercel.app/tag/${id}`
             // console.log("url", url)
             const response = await fetch(url, {
                 method: "DELETE",
