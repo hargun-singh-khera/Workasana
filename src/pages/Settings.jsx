@@ -120,7 +120,7 @@ const Settings = () => {
                         <div className="col-md-5">
                             <div className="d-flex justify-content-between align-items-center">
                                 <h5 className="mt-3 mb-4">Tags</h5>
-                                <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tagModalAdd">+ New Tag</button>
+                                <button className="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#tagModalAdd">+ New Tag</button>
                             </div>
                             <AddTag setTags={setTags} />
                             {tagsLoading && (

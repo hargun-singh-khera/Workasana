@@ -65,13 +65,13 @@ const Dashboard = () => {
                     <section className="mb-5">
                         <div className="mb-3 d-flex justify-content-between align-items-center">
                             <div className="d-flex align-items-center gap-4">
-                                <h3>Projects</h3>
-                                <select onChange={(e) => setProjectStatus(e.target.value)} className="form-select w-auto" aria-label="Default select example">
+                                <h4>Projects</h4>
+                                <select onChange={(e) => setProjectStatus(e.target.value)} className="form-select form-select-sm w-auto" aria-label="Default select example">
                                     <option selected value="">Filter</option>
                                     {projectStatuses?.map(status => <option key={status} value={status}>{status}</option>)}
                                 </select>
                             </div>
-                            <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#projectModal">+ New Project</button>
+                            <button className="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#projectModal">+ New Project</button>
                             <AddProject setProjects={setProjects} />
                         </div>
                         <div className="row ">
@@ -85,8 +85,8 @@ const Dashboard = () => {
                             {!projectsLoading && projectsError && <p>Failed to load projects.</p>}
                             {!projectsLoading && filteredProjects?.length === 0 && !projectsError && <p>No projects found.</p>}
                             {!projectsError && filteredProjects?.length > 0 && filteredProjects?.map((project) => (
-                                <button key={project?._id} onClick={() => navigate(`/project/${project._id}`, { state: { project } })} type="button" className="col-md-4 btn border-0">
-                                    <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
+                                <button key={project?._id} onClick={() => navigate(`/project/${project._id}`, { state: { project } })} type="button" className="col-md-4 btn border-0 mb-3">
+                                    <div className="card border-0 rounded-4 p-1 shadow-sm" style={{ backgroundColor: "#F8FAFC" }}>
                                         <div className="card-body d-flex flex-column align-items-start">
                                             <Badge status={project?.status || "In Progress"} />
                                             <h5 className="card-title">{project?.name}</h5>
@@ -100,13 +100,13 @@ const Dashboard = () => {
                     <section className="mb-5">
                         <div className="mb-3 d-flex justify-content-between align-items-center">
                             <div className="d-flex align-items-center gap-4">
-                                <h3>My Tasks</h3>
-                                <select onChange={(e) => setStatus(e.target.value)} className="form-select w-auto" aria-label="Default select example">
+                                <h4>My Tasks</h4>
+                                <select onChange={(e) => setStatus(e.target.value)} className="form-select form-select-sm w-auto" aria-label="Default select example">
                                     <option selected value="">Filter</option>
                                     {statuses?.map(status => <option key={status} value={status}>{status}</option>)}
                                 </select>
                             </div>
-                            <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">+ New Task</button>
+                            <button className="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">+ New Task</button>
                             <AddTask setTasks={setTasks} projects={projects} />
                         </div>
                         <div className="row">
@@ -121,7 +121,7 @@ const Dashboard = () => {
                             {filteredTasks?.length === 0 && <p>No tasks found.</p>}
                             {filteredTasks?.length > 0 && filteredTasks?.map((task => (
                                 <button key={task?._id} onClick={() => navigate(`/task/${task._id}`, { state: { task } })} type="button" className="col-md-4 btn border-0 mb-3">
-                                    <div className="card border-0 rounded-4 p-1" style={{ backgroundColor: "#F8FAFC" }}>
+                                    <div className="card border-0 rounded-4 p-1 shadow-sm" style={{ backgroundColor: "#F8FAFC" }}>
                                         <div className="d-flex flex-column align-items-start card-body">
                                             <Badge status={task?.status} />
                                             <h5 className="card-title">{task?.name}</h5>

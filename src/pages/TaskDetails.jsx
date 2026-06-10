@@ -48,7 +48,7 @@ const TaskDetails = () => {
             <div className="row">
                 <Sidebar />
 
-                <div className="col-md-10 px-5 my-5">
+                <div className="col-md-10 px-md-5 my-5">
                     {loading && (
                         <div className="d-flex justify-content-center align-items-center my-5">
                             <div class="spinner-border text-secondary" role="status">

@@ -67,27 +67,27 @@ const Project = () => {
         <div className='container-fluid'>
             <div className="row">
                 <Sidebar />
-                <div className="col-md-10 px-5 my-5">
+                <div className="col-12 col-md-10 px-md-5 my-5">
                     <div>
-                        <h3>{projectData?.name}</h3>
-                        <p>{projectData?.description}</p>
+                        <h3 className="fs-4 fs-md-3">{projectData?.name}</h3>
+                        <p className="text-muted small">{projectData?.description}</p>
                     </div>
-                    <div className="d-flex justify-content-between align-items-center mt-5 mb-4">
-                        <div className="d-flex gap-2 align-items-center">
+                    <div className="d-flex flex-column flex-md-row justify-content-between gap-3 mt-5 mb-4">
+                        <div className="d-flex flex-wrap gap-2 align-items-center">
                             <h6>Sort by:</h6>
-                            <div className="d-flex gap-2">
+                            <div className="d-flex flex-wrap gap-2">
                                 <button onClick={() => setSortBy("Low")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Priority Low-High</button>
                                 <button onClick={() => setSortBy("High")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Priority High-Low</button>
                                 <button onClick={() => setSortBy("New")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Newest First</button>
                                 <button onClick={() => setSortBy("Old")} type="button" className="btn btn-outline-secondary btn-sm rounded-pill">Oldest First</button>
                             </div>
                         </div>
-                        <div className="d-flex gap-4">
-                            <select onChange={(e) => setStatus(e.target.value)} className="form-select w-auto" aria-label="Default select example">
+                        <div className="d-flex gap-2 justify-content-between">
+                            <select onChange={(e) => setStatus(e.target.value)} className="form-select form-select-sm w-auto" aria-label="Default select example">
                                 <option value="" selected>Filter</option>
                                 {statuses?.map(status => (<option value={status}>{status}</option>))}
                             </select>
-                            <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">+ New Task</button>
+                            <button type="button" className="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#taskModal">+ New Task</button>
                             <AddTask setTasks={setTasks} projectData={projectData} isProjectDetails />
                         </div>
                     </div>
@@ -100,8 +100,8 @@ const Project = () => {
                             </div>
                         )}
                         {!loading && filteredTasks?.length === 0 && <p>No tasks found</p>}
-                        {!loading && filteredTasks?.length > 0 && <div className="table-responsive">
-                            <table className="table table-bordered rounded-3">
+                        {!loading && filteredTasks?.length > 0 && <div className="table-responsive" style={{ overflowX: 'auto' }}>
+                            <table className="table table-bordered table-hover align-middle rounded-3 w-100" >
                                 <thead className="table-light">
                                     <tr>
                                         <th scope="col">TASKS</th>
@@ -114,18 +114,18 @@ const Project = () => {
                                 <tbody>
                                     {filteredTasks?.map(task => (
                                         <tr>
-                                            <td>{task?.name}</td>
-                                            <td><div className="d-flex">
+                                            <td className="text-nowrap">{task?.name}</td>
+                                            <td className="text-nowrap"><div className="d-flex flex-nowrap gap-1 overflow-hidden">
                                                 {task?.owners?.slice(0, 4)?.map((owner, index) => (
                                                     <AvatarGroup key={index} index={index} total={task?.owners?.length} member={owner?.name} countLabel={task?.owners?.length > 3 ? task?.owners?.length - 3 : 0} />
                                                 ))}
                                             </div></td>
-                                            <td>
+                                            <td className="text-nowrap">
                                                 <Badge priority={task?.priority} />
                                             </td>
-                                            <td className="fw-bold">{getFormattedDate(task?.dueDate)}</td>
-                                            <td>{task?.status}</td>
-                                            <td className="text-center">
+                                            <td className="fw-bold text-nowrap">{getFormattedDate(task?.dueDate)}</td>
+                                            <td className="text-nowrap">{task?.status}</td>
+                                            <td className="text-center text-nowrap">
                                                 <Link to={`/task/${task._id}`} className="btn border-0">
                                                     <i className="bi bi-arrow-right-short"></i>
                                                 </Link>
